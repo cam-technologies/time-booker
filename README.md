@@ -1,7 +1,7 @@
 Time-Booker
 ===========
 
-Web based time booking application, build using the **MEAN** stack. This application will allow users to manually enter work
+Web based time booking application, build using the **MEEN** stack. This application will allow users to manually enter work
 times in blocks of hours and minutes for each day of the week.
 
 
