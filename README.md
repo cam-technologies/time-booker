@@ -46,5 +46,60 @@ Contributing Code
 Time Booker follows the [Fork & Pull](https://help.github.com/articles/using-pull-requests) model
 for collaborative development.
 
+## Installation & Configuration
+
+### Platform & tools
+
+You need to install Node.js and then the development tools. Node.js comes with a package manager called [npm](http://npmjs.org) (requires npm version >= 1.3.0 for this project) for installing NodeJS applications and libraries.
+* [Install node.js](http://nodejs.org/download/) (requires node.js version >= 0.10.0)
+* [Install Gulp](http://gulpjs.com/) as global npm modules (requires node.js version >= 0.10.0):
+
+    ```bash
+    $ npm install -g gulp
+    ```
+
+* [Install Bower](http://http://bower.io/) as global npm modules (requires node.js version >= 0.10.0):
+
+    ```bash
+    $ npm install -g bower
+    ```
+
+### App
+Run the following commands to download Time-Booker app:
+    ```
+    git clone git@github.com:cam-technologies/time-booker.git
+    ```
+
+* Install local dependencies:
+
+    ```bash
+    $ npm install
+    $ gulp wiredep
+    ```
+* Make sure all [bower](https://github.com/cam-technologies/time-booker/blob/master/bower.json) dependencies are added to [index.html](https://github.com/cam-technologies/time-booker/blob/master/client/app/index.html) after ```gulp wiredep``` task was executed:
+
+    ```HTML
+    <!-- bower:css -->
+       <link rel="stylesheet" href=".."/>
+    <!-- endbower -->
+    <!-- bower:js -->
+       <script src=".."></script>
+    <!-- endbower -->
+    ```
+    
+*Note1: If you are getting error with github try this "git config --global url."https://".insteadOf git://".* <br />
+*Note2: Make sure all 3rd dependencies from package.json and bower.json are installed on your local machine.*
+
+## Running App
+
+### Start the Server
+* Run the server:
+
+    ```bash
+    $ node server/server.js
+    ```
+
+* Browse to the application at [http://localhost:3000](http://localhost:3000)
+
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/chrislaughlin/time-booker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
