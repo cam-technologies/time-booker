@@ -1,0 +1,28 @@
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+npm-debug.log
+node_modules
+
+# WebStorm files
+.idea/
+
+# 3rd dependencies
+client/vendor/
+
+# build folder for production
+build/
+
+# ignore test coverage
+test/coverage/
+test/test_out/

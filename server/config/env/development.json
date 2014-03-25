@@ -1,0 +1,9 @@
+{
+    "express": {
+        "port": 3000
+    },
+    "public": {
+        "path": "client/",
+        "indexHtmlPath": "app/index.html"
+    }
+}
