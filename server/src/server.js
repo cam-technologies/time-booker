@@ -3,10 +3,8 @@
 /**
  * Module dependencies.
  */
-var express = require('express'),
-    app = express(),
-    server = require('http').createServer(app),
-    config = require('./config/config.js');
+var app     = require('express')();
+var config  = require('./config/config');
 
 /**
  * Main application entry file.
@@ -14,15 +12,15 @@ var express = require('express'),
  */
 
 // express settings
-require('./config/express')(app, config);
+require('./config/express')(app);
 
 // routes settings
-require('./config/routes')(app);
+//require('./config/routes')(app);
 
 // Start up the server on the port specified in the config
-server.listen(process.env.PORT || config.get("express:port"), function () {
+app.listen(process.env.PORT || config.get("express:port"), function () {
     console.info(config.get("app:name") + ' app started on port: ' + (process.env.PORT || config.get("express:port")) + ' - with environment: ' + config.get("env"));
 });
 
-//expose app
-module.exports = app;
+// Expose app
+exports = module.exports = app;

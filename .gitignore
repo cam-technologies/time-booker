@@ -18,11 +18,7 @@ node_modules
 .idea/
 
 # 3rd dependencies
-client/vendor/
+client/src/vendor/
 
 # build folder for production
 build/
-
-# ignore test coverage
-test/coverage/
-test/test_out/

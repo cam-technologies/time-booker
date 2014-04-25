@@ -1,9 +1,0 @@
-{
-    "express": {
-        "port": 5000
-    },
-    "public": {
-        "path": "build/",
-        "indexHtmlPath": "views/index.html"
-    }
-}
