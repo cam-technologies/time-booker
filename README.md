@@ -46,6 +46,59 @@ Contributing Code
 Time Booker follows the [Fork & Pull](https://help.github.com/articles/using-pull-requests) model
 for collaborative development.
 
+## Directory Layout
+
+**Development:**
+
+    time-booker/ 
+      |- client/                --> all client code
+      |  |- src/                    --> client source code files
+      |  |  |- app/                     --> ember.js app code
+      |  |  |- assets/                  --> static files like fonts, images, fonts
+      |  |  |  |- fonts/                    --> fonts
+      |  |  |  |- images/                   --> image files
+      |  |  |  |- styles/                   --> css & sass files 
+      |  |  |- vendor/                  --> 3rd party client and test libraries
+      |  |  |- index.html               --> app main file
+      |  |  |- favicon.ico              --> favicon icon
+      |  |- test/                   --> client test code
+      |  |  |- config/                  --> configuration files for unit (karma) and e2e (protactor) tests
+      |  |  |- e2e/                     --> e2e test files
+      |  |  |- unit/                    --> unit test files
+      |- server/                --> all server code   
+      |  |- src/                    --> server source code files
+      |  |- test/                   --> server test code
+      |     |- config/                  --> configuration files for unit (karma) test
+      |     |- unit/                    --> unit test files
+      |- .bowerrc               --> specify where bower dependencies should be installed
+      |- .editorconfig          --> define and maintain consistent coding styles between different editors
+      |- .gitignore             --> specify directories and files to be to ignored by git
+      |- .jshintrc              --> JavaScript code quality tool 
+      |- bower.json             --> specify client site dependencies
+      |- CHANGELOG.md           --> record of changes made to a project
+      |- gulpfile.js            --> front-end and JavaScript workflow tasks runner
+      |- package.json           --> specify module npm dependencies
+      |- README.md              --> summary of the project  
+
+**Build:**
+
+    build/               
+      |- dist                       --> distribution source code that goes to production
+      |  |- client/                     --> client code
+      |  |  |- assets/                    --> emberJS-agnostic presentation artifacts 
+      |  |  |  |- fonts/                     --> fonts
+      |  |  |  |- images/                    --> image files
+      |  |  |  |- styles/                    --> css files 
+      |  |  |     |- app.min-12345.css          --> concat & minify app css files 
+      |  |  |     |- lib.min-12345.css          --> concat & minify 3rd party lib css files 
+      |  |  |- scripts/                   --> js files 
+      |  |  |  |- app.min-12345.js           --> concat, minify angular app js files and cached html templates
+      |  |  |  |- lib.min-12345.js           --> concat & minify 3rd party lib js files 
+      |  |  |- index.html                 --> app main file
+      |  |- server/                     --> server code 
+      |- docs/                      --> app documentation    
+      |- test-reports/              --> app test-reports (coverage, failure screenshots etc.)      
+
 ## Installation & Configuration
 
 ### Platform & tools
@@ -74,9 +127,9 @@ Run the following commands to download Time-Booker app:
 
     ```bash
     $ npm install
-    $ gulp wiredep
+    $ gulp install
     ```
-* Make sure all [bower](https://github.com/cam-technologies/time-booker/blob/master/bower.json) dependencies are added to [index.html](https://github.com/cam-technologies/time-booker/blob/master/client/app/index.html) after ```gulp wiredep``` task was executed:
+* Make sure all [bower](bower.json) dependencies are added to [index.html](client/src/app/index.html) after ```gulp wiredep``` task was executed:
 
     ```HTML
     <!-- bower:css -->
@@ -87,19 +140,28 @@ Run the following commands to download Time-Booker app:
     <!-- endbower -->
     ```
     
-*Note1: If you are getting error with github try this "git config --global url."https://".insteadOf git://".* <br />
-*Note2: Make sure all 3rd dependencies from package.json and bower.json are installed on your local machine.*
+> *Note1: If you are getting error with github try this "git config --global url."https://".insteadOf git://".* <br />
+> *Note2: Make sure all 3rd dependencies from package.json and bower.json are installed on your local machine.*
 
 ## Running App
 
-### Start the Server
+### Start the Server (development env)
 * Run the server:
 
     ```bash
-    $ node server/server.js
+    $ node server/src/server.js
     ```
 
 * Browse to the application at [http://localhost:3000](http://localhost:3000)
 
+### Start the Server (production env)
+* Run the server:
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/chrislaughlin/time-booker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+    ```bash
+    $ gulp build
+    $ cd build/dist
+    $ npm install --production
+    $ NODE_ENV=production node server/src/server.js
+    ```
+
+* Browse to the application at [http://localhost:5000](http://localhost:5000)
