@@ -123,8 +123,7 @@ Run the following commands to download Time-Booker app:
     <!-- endbower -->
     ```
     
-> *Note1: If you are getting error with github try this "git config --global url."https://".insteadOf git://".* <br />
-> *Note2: Make sure all 3rd dependencies from package.json and bower.json are installed on your local machine.*
+> **Note:** Verify that all 3rd party dependencies from [package.json](package.json) and [bower.json](bower.json) are installed on your local machine. If you have followed the instructions and there have been no errors when executing the above commands, the dependencies should be installed.
 
 ## Running App
 
