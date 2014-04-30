@@ -1,12 +1,11 @@
-'use strict';
+import Resolver from 'ember/resolver';
+import loadInitializers from 'ember/load-initializers';
 
-var test = function (user, text, image, geo, latitude, longitude) {
-    this.user = user;
-    this.text = text;
-    this.image = image;
-    this.geo = geo;
-    this.latitude = latitude;
-    this.longitude = longitude;
-};
+var App = Ember.Application.extend({
+  modulePrefix: 'appkit', // TODO: loaded via config
+  Resolver: Resolver
+});
 
-test();
+loadInitializers(App, 'appkit');
+
+export default App;
