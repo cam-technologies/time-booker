@@ -22,3 +22,9 @@ client/src/vendor/
 
 # build folder for production
 build/
+
+client/src/bower.json
+
+client/src/client/*
+
+client/src/tmp/result/assets/templates.js
