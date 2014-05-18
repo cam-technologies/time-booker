@@ -6,5 +6,7 @@ var handlers = {
 module.exports = function (app) {
 
     // Index RESTful
-    app.get('/', handlers.index.index);
+//    app.get('/', handlers.index.index);
 };
+
+
