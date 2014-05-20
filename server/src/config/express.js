@@ -13,7 +13,7 @@ var config          = require('./config');
 module.exports = function (app) {
 
     // initialize static server that will spit out contents of public folder
-    app.use(express.static(config.get("appRoot") + config.get("publicPath")));
+    app.use(express.static(config.get("publicPath")));
     // log every request to the console
     app.use(morgan('dev'));
     // error handler

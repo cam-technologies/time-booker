@@ -14,6 +14,10 @@ nconf.set("env", env);
 var appRoot = path.normalize(__dirname + '/../../../');
 nconf.set("appRoot", appRoot);
 
+// set the public path for the client application
+var publicPath = path.normalize(__dirname + '/../../../client/src/app');
+nconf.set('publicPath', publicPath);
+
 // load app configuration
 nconf.file("all", __dirname + "/env/all.json");
 nconf.file(env, __dirname + "/env/" + env + ".json");
