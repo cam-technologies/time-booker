@@ -15,7 +15,7 @@ var appRoot = path.normalize(__dirname + '/../../../');
 nconf.set("appRoot", appRoot);
 
 // set the public path for the client application
-var publicPath = path.normalize(__dirname + '/../../../client/src/app');
+var publicPath = path.normalize(__dirname + '/../../../client/src/');
 nconf.set('publicPath', publicPath);
 
 // load app configuration
