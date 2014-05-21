@@ -14,13 +14,11 @@
     "scripts": {
         "jshint": "gulp jshint",
         "htmlhint": "gulp htmlhint",
-        "test": "gulp test:unit",
         "dep-check": "david"
     },
     "pre-commit": [
         "jshint",
         "htmlhint",
-        "test",
         "dep-check"
     ],
     "repository": {
