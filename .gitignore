@@ -22,5 +22,4 @@ client/src/vendor/
 
 # build folder for production
 build/
-
-client/src/client/*
+.tmp

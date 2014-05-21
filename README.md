@@ -143,7 +143,7 @@ Run the following commands to download Time-Booker app:
     $ gulp build
     $ cd build/dist
     $ npm install --production
-    $ NODE_ENV=production node server/src/server.js
+    $ NODE_ENV=production node server/server.js
     ```
     
 * Browse to the application at [http://localhost:5000](http://localhost:5000)

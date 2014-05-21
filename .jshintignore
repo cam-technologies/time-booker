@@ -1,3 +1,1 @@
-src/app/config-env.js
 node_modules/**/*
-package.json
