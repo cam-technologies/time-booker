@@ -4,20 +4,20 @@
     <meta charset="utf-8">
     <title>Ember Starter Kit</title>
     <link rel="stylesheet" href="styles/normalize.css">
-    <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
 <script type="text/x-handlebars">
     <div class="container">
-        <div class="navbar">
+        <div class="navbar navbar-default">
             <div class="navbar-inner">
-                <a class="brand" href="#">Ember Digest</a>
-                <ul class="nav pull-right">
-                    <li>{{#linkTo articles}}Articles{{/linkTo}}</li>
-                    <li>{{#linkTo photos}}Photos{{/linkTo}}</li>
-                    <li>{{#linkTo login}}Login{{/linkTo}}</li>
+                <a class="navbar-brand" href="#">Ember Digest</a>
+                <ul class="nav navbar-nav pull-right">
+                    <li>{{#link-to "articles" }}Articles{{/link-to}}</li>
+                    <li>{{#link-to "photos" }}Photos{{/link-to}}</li>
+                    <li>{{#link-to "login" }}Login{{/link-to}}</li>
                 </ul>
             </div>
         </div>
@@ -50,11 +50,11 @@
     <div class="row">
         <ul id="photos" class="thumbnails">
             {{#each model}}
-            <li class="span4">
-            <span class="thumbnail">
-              <img {{bindAttr src="src"}} />
-            </span>
-            </li>
+                <li class="col-xs-6 col-md-3">
+                <span class="thumbnail">
+                  <img {{bind-attr src="src"}} />
+                </span>
+                </li>
             {{/each}}
         </ul>
     </div>
@@ -76,9 +76,10 @@
     {{/if}}
 </script>
 
-<script src="libs/jquery-1.9.1.js"></script>
-<script src="libs/handlebars-1.0.0-rc.4.js"></script>
-<script src="libs/ember-1.0.0-rc.6.js"></script>
+<script src="libs/jquery/dist/jquery.js"></script>
+<script src="libs/handlebars/handlebars.js"></script>
+<script src="libs/ember/ember.js"></script>
+<script src="libs/bootstrap/dist/js/bootstrap.js"></script>
 <script src="app.js"></script>
 <script src="router.js"></script>
 <script src="controllers/loginController.js"></script>

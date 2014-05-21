@@ -22,7 +22,7 @@
         });
     },
 
-    events: {
+    actions: {
         error: function(reason, transition) {
             if (reason.status === 401) {
                 this.redirectToLogin(transition);
