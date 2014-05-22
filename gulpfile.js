@@ -589,7 +589,7 @@ gulp.task('test:e2e', 'Run e2e tests', ['webdriver_update'], function () {
     gulp.src('./idontexist')
         .pipe(protractor({
             configFile: 'client/test/config/protractor.conf.js',
-            args: ['--baseUrl', APPLICATION_BASE_URL, '--capabilities.browserName', BROWSERS.toLowerCase(), '--env', ENV]
+            args: ['--baseUrl', 'http://localhost:3000', '--capabilities.browserName', BROWSERS.toLowerCase(), '--env', ENV]
         })).on('error', function () {
             // Make sure failed tests cause gulp to exit non-zero
             gutil.log(COLORS.red('Error: E2E test failed'));
