@@ -1,11 +1,11 @@
 {
     "name": "time-booker",
     "private": true,
-    "version": "0.1.0",
+    "version": "0.0.0",
     "dependencies": {
-        "ember": "~1.5.0-beta.4",
-        "bootstrap": "~3.0.2"
-    },
-    "devDependencies": {
+        "ember": "1.5.1",
+        "handlebars": "1.3.0",
+        "normalize-css": "2.1.3",
+        "bootstrap": "3.0.2"
     }
 }

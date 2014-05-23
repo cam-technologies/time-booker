@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/martinmicunda/tweet-map.png)](http://travis-ci.org/martinmicunda/tweet-map) [![Dependency Status](https://david-dm.org/cam-technologies/time-booker.png)](https://david-dm.org/cam-technologies/time-bookerp) [![devDependency Status](https://david-dm.org/cam-technologies/time-booker/dev-status.png)](https://david-dm.org/cam-technologies/time-booker#info=devDependencies) 
+[![Build Status](https://secure.travis-ci.org/martinmicunda/tweet-map.png)](http://travis-ci.org/martinmicunda/tweet-map) [![Dependency Status](https://david-dm.org/cam-technologies/time-booker.png)](https://david-dm.org/cam-technologies/time-bookerp) [![devDependency Status](https://david-dm.org/cam-technologies/time-booker/dev-status.png)](https://david-dm.org/cam-technologies/time-booker#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/cam-technologies/time-booker/badge.png)](https://coveralls.io/r/cam-technologies/time-booker)
 Time-Booker
 ===========
 
@@ -143,7 +143,7 @@ Run the following commands to download Time-Booker app:
     $ gulp build
     $ cd build/dist
     $ npm install --production
-    $ NODE_ENV=production node server/src/server.js
+    $ NODE_ENV=production node server/server.js
     ```
     
 * Browse to the application at [http://localhost:5000](http://localhost:5000)
@@ -152,26 +152,35 @@ Run the following commands to download Time-Booker app:
 The best way to learn about the gulp tasks is by familiarizing yourself with [Gulp](http://gulpjs.com/) and then reading through the documented [gulpfile.js](gulpfile.js) script.
 
 ###Sub Tasks:###
-
-* `gulp clean` - will delete `build` and `.tmp` directories
-* `gulp copy` - will copy project files that haven't been copied by 'compile' task e.g. (fonts, etc.) into 'build' folder
-* `gulp csslint` - will run linter against css files in `public/assets/styles`
-* `gulp jshint` - will run linter against javascript files
-* `gulp htmlhint` - will run linter against html files
-* `gulp images` - will minify images `public/assets/images`
-* `gulp templates` - will replace local links with CDN links for images inside of templates, minify html templates and then put all templates into strings in a JavaScript file that will add the template to AngularJS's [`$templateCache`](http://docs.angularjs.org/api/ng.$templateCache) so template files are part of the initial JavaScript payload and do not require any future XHR. The template cache files are `.tmp/scripts/templates.js`
-* `gulp bower` - will install all bower components specify in [`bower.json`](bower.json) from bower repository
-* `gulp bower-install` - will do the same as `bower` task but also inject bower components to [`index.html`](public/index.html)
-* `gulp watch` - will watching for file changes and run linter tasks against specific files, in addition browser will be refreshed with every change 
-* `gulp compile` - will concatenate, minify, cdnize and revesion sources and place them by default into the `build/dist` directory
-* `gulp bump` - will increase version number in [`package.json`](package.json) and [`bower.json`](bower.json)
-* `gulp webdriver_update` - will downloads the selenium webdriver
-* `gulp test-e2e` - will run e2e tests
-* `gulp test-unit` - will run unit tests
-* `gulp help` - will print all tasks with description of each task
+| Command                          | Description | 
+| -------------------------------- | ----------- | 
+| `gulp clean` | will delete `build` and `.tmp` directories | 
+| `gulp copy` | will copy project files that haven't been copied by 'compile' task e.g. (fonts, etc.) into 'build' folder | 
+| `gulp csslint` | will run linter against css files in `client/src/assets/styles` | 
+| `gulp jshint` | will run linter against javascript files |
+| `gulp htmlhint` | will run linter against html files | 
+| `gulp images` | will minify images `client/src/assets/images` |
+| `gulp templates` | |
+| `gulp bower` | will install all bower components specify in [`bower.json`](bower.json) from bower repository | 
+| `gulp bower-install`    | will do the same as `bower` task but also inject bower components to [`index.html`](client/src/index.html) |
+| `gulp watch` |  will watching for file changes and run linter tasks against specific files, in addition browser will be refreshed with every change | 
+| `gulp compile` | will concatenate, minify, cdnize and revesion sources and place them by default into the `build/dist` directory | 
+| `gulp webdriver_update` | will update/install the selenium webdriver |
+| `gulp help` | will print all tasks with description of each task |
 
 ###Main Tasks:###
-The main gulp tasks are descriptive in `development`, `test`, `build` and `release` sections.
+The main gulp tasks are descriptive more in `development`, `test`, `build` and `release` sections.
+
+| Command                          | Description | 
+| -------------------------------- | ----------- |
+| `gulp install` | will install bower dependencies and generate config-env.js file |
+| `gulp` | will run default task that watches for changes and run `jshint`, `csslint`, `htmlhint` |
+| `gulp test:e2e` | will run e2e tests |
+| `gulp test:unit` | will run unit tests |
+| `gulp build` | will create build that is ready for uploading to the server |
+| `gulp bump` | will increment version number in [`package.json`](package.json) and [`bower.json`](bower.json)|
+| `gulp changelog` | will generate changelog in [`CHANGELOG.md`](CHANGELOG.md) |
+| `gulp release` | will release and push [`package.json`](package.json) and [`CHANGELOG.md`](CHANGELOG.md) to GitHub repo |
 
 ## Development
 Whenever you're working on project, start with:
@@ -186,29 +195,71 @@ This default gulp task will install bower dependencies, build dev enviroment, mo
 ```
 
 ## Test
-To run all unit and e2e tests in parallel run the follow task:
+The `test:unit` and `test:e2e` tasks have optional arguments `--browsers=(PhantomJS|Chrome|Firefox|Safari)` and `--env=(development|production)`. If you don't specify these optional arguments then the default value for `--browsers` is `PhantomJS` and default value for `--env` is `development`.
 
-```bash
-$ gulp test
-```
+App test-reports (coverage, failure screenshots etc.) can be found under `build/test-reports/` directory.
+
+* **Unit test examples:**
+
+   This will run test against `PhantomJS` and code specify in `src/` folder:
+   ```bash
+   $ gulp test:unit
+   ```
+   This will run test against `Chrome` and code specify in `build/dist/` folder:
+   ```bash
+   $ gulp test:unit --browsers=Chrome --env=production
+   ```
+   To run test against multiple browsers at the same time run follow task:
+   **TODO: (martin)** this task is not supported yet!
+   ```bash
+   $ gulp test:unit --browsers=Chrome,Firefox,Safari 
+   ```
+   > NOTE: Verify that the browsers you want to run test against are installed on your local machine. The `PhantomJS` should be already installed after you run `npm install`.
+
+* **E2E test examples:**
+
+   This will run test against `PhantomJS` with your application running on `development` server:
+   **TODO (martin)** at the moment default browser is set to Chrome because there is an issue with PhantomJS and protractor
+   ```bash
+   $ gulp test:e2e
+   ```
+   > NOTE: Verify that you are not running application before executing the above command as `protractor` will start and stop application for e2e test running in `development` mode.
+   
+   This will run test against `Chrome` with your application running on `production` server:
+   ```bash
+   $ gulp test:e2e --browsers=Chrome --env=production
+   ```   
 
 ## Build
-The build task get app ready for production. The build tasks include concatenation, minification, compression, cdn etc.
-To initiate a full build, you simply run the follow task:
-
+The build task get app ready for production. The build task include test:unit, test:e2e, concatenation, minification, compression, cdn etc. If there have been no errors when executing the build command, the build should be located in `build/dist` directory and this build is ready for uploading to the server!. To initiate a full build, you simply run the follow task:
 ```bash
 $ gulp build
 ```
-This will perform a build that is ready for uploading to the server! The build is located in `build/dist` directory. 
+
+If for some reason you don't want to run the test but just generate the files - **not a good idea(!!)** - you can simply run the build task with argument `--notest`: 
+```bash
+$ gulp build --notest
+```
+
+If you want to run production code on your local machine you need to run the build task with argument `--nocdn` to point cdn url to your local enviroment:
+```bash
+$ gulp build --nocdn
+```
 
 ## Release
-TODO: add release steps e.g. [https://github.com/angular-ui/bootstrap#release](https://github.com/angular-ui/bootstrap#release)
 
-The release task will release a new version of our project. This task will also run the "end to end" (e2e) and unit tests. The e2e tests require the server to be started. To initiate a full release, you simply run the follow task:
+> Before releasing make sure there is no failing Jenkins build for this project. During the release process only [`package.json`](package.json) and [`CHANGELOG.md`](CHANGELOG.md) files should be edited and all steps should be done with **gulp tasks** and **not manually**!
 
-```bash
-$ gulp release
-```
+- Almost all of the logic for releasing this project is done on the Jenkins server
+- To push a new release:
+  1. Update [`package.json`](package.json) version to new version with `gulp bump --type=(major|minor|patch)` 
+  2. Generate changelog with `gulp changelog`
+  3. Go through the changelog, and fix any mistakes or clarify any unclear commit messages
+  4. Commit and push [`package.json`](package.json) and [`CHANGELOG.md`](CHANGELOG.md) with `gulp release` 
+- Jenkins will detect that this commit changed the version in [`package.json`](package.json) and push out all necessary for this new release (tags, publish to private npm, etc ...)
+
+## Commit Conventions
+Use these [commit conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit) to generate a changelog from git metadata. Some example output can be found [here](https://github.com/driftyco/ionic/blob/master/CHANGELOG.md).
 
 ## Versioning
 

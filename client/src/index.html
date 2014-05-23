@@ -1,0 +1,119 @@
+<!doctype html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Time Booker</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+
+        <!-- build:css_libs(client/src) assets/styles/vendor.min.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="vendor/normalize-css/normalize.css" />
+        <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css" />
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:css(client/src) assets/styles/app.min.css -->
+        <link rel="stylesheet" href="assets/styles/style.css" />
+        <!-- endbuild -->
+
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+            your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <script type="text/x-handlebars">
+            <div class="container">
+                <div class="navbar navbar-default">
+                    <div class="navbar-inner">
+                        <a class="navbar-brand" href="#">Ember Digest</a>
+                        <ul class="nav navbar-nav pull-right">
+                            <li>{{#link-to "articles" }}Articles{{/link-to}}</li>
+                            <li>{{#link-to "photos" }}Photos{{/link-to}}</li>
+                            <li>{{#link-to "login" }}Login{{/link-to}}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                {{outlet}}
+            </div>
+        </script>
+
+
+        <script type="text/x-handlebars" data-template-name="index">
+            <h1>Welcome to Ember Digest</h1>
+            <p>Here we got all sorts of content!</p>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="articles">
+            <h2>Articles</h2>
+
+            {{#each model}}
+            <article>
+                <h3>{{title}}</h3>
+                <p>Posted by {{author}}</p>
+                <p>{{body}}</p>
+            </article>
+            {{/each}}
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="photos">
+            <h2>Photos</h2>
+
+            <div class="row">
+                <ul id="photos" class="thumbnails">
+                    {{#each model}}
+                        <li class="col-xs-6 col-md-3">
+                        <span class="thumbnail">
+                          <img {{bind-attr src="src"}} />
+                        </span>
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </script>
+
+        <script type="text/x-handlebars" data-template-name="login">
+            {{#if loggedIn}}
+            <p>You are already logged in!</p>
+            {{else}}
+            <form class="form-inline" {{action login on="submit"}}>
+            <h2>Log In</h2>
+            {{input value=username type="text" placeholder="Username"}}
+            {{input value=password type="password" placeholder="Password"}}
+            {{input class="btn" type="submit" value="Log In"}}
+            </form>
+            {{#if errorMessage}}
+            <div class="alert alert-error">{{errorMessage}}</div>
+            {{/if}}
+            {{/if}}
+        </script>
+
+        <!-- build:js_libs(client/src) scripts/vendor.min.js -->
+        <!-- bower:js -->
+        <script src="vendor/jquery/dist/jquery.js"></script>
+        <script src="vendor/handlebars/handlebars.js"></script>
+        <script src="vendor/ember/ember.js"></script>
+        <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,client/src}) scripts/app.min.js -->
+        <script src="./app/app.js"></script>
+        <script src="./app/router.js"></script>
+        <script src="./app/controllers/loginController.js"></script>
+        <script src="./app/routes/authenticatedRoute.js"></script>
+        <script src="./app/routes/photosRoute.js"></script>
+        <script src="./app/routes/articlesRoute.js"></script>
+        <script src="./app/routes/loginRoute.js"></script>
+        <script src="./tmp/scripts/ember-templates.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:remove -->
+        <!-- TODO: (martin) build:remove is not supported yet in the 'gulp-usemin' plugin but this feature coming soon -->
+        <script src="http://localhost:35729/livereload.js?snipver=1"></script>
+        <!-- endbuild -->
+    </body>
+</html>
