@@ -10,8 +10,8 @@
  */
 var argv        = require('minimist')(process.argv.slice(2));
 var gulp        = require('gulp');
-var server      = require('tiny-lr')();
 var semver      = require('semver');
+var browser     = require('tiny-lr')();
 var wiredep     = require('wiredep').stream;
 var runSequence = require('run-sequence');
 
@@ -39,6 +39,7 @@ var gulpif               = require('gulp-if');
 var jshint               = require('gulp-jshint');
 var header               = require('gulp-header');
 var uglify               = require('gulp-uglify');
+var concat               = require('gulp-concat');
 var usemin               = require('gulp-usemin');
 var nodemon              = require('gulp-nodemon');
 var csslint              = require('gulp-csslint');
@@ -69,7 +70,7 @@ var ENV                  = !!argv.env ? argv.env : 'development';
 var COLORS               = gutil.colors;
 var BROWSERS             = !!argv.browsers ? argv.browsers : 'PhantomJS';
 var API_VERSION          = '1.0';
-var GIT_REMOTE_URL       = 'https://'+ process.env.GH_TOKEN +'@github.com/martinmicunda/employee-scheduling.git'; // git@github.com:martinmicunda/employee-scheduling.git
+var GIT_REMOTE_URL       = 'https://'+ process.env.GH_TOKEN +'@github.com/cam-technologies/time-booker.git'; // git@github.com:cam-technologies/time-booker.git
 var LIVERELOAD_PORT      = 35729;
 var BUILD_WITHOUT_TEST   = !!argv.notest ? true : false;
 
@@ -153,8 +154,8 @@ var paths = {
      * copy to 'dist' folder.
      */
     tmp: {
-        basePath:       '.tmp',
-        scripts:        '.tmp/scripts/'
+        basePath:       'client/src/tmp',
+        scripts:        'client/src/tmp/scripts/'
     },
     /**
      * The 'build' folder is where our app resides once it's
@@ -301,7 +302,7 @@ gulp.task('csslint', 'Lint CSS files', function () {
                 hasCssLintError = true;
             }
         }))
-        .pipe(refresh(server))
+        .pipe(refresh(browser))
         .pipe(size())
         .on('end', errorReporter);
 });
@@ -315,7 +316,7 @@ gulp.task('jshint', 'Hint JavaScripts files', function () {
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'))
 //        .pipe(gulpif(!isWatching, jshint.reporter('fail')))
-        .pipe(refresh(server))
+        .pipe(refresh(browser))
         .pipe(size());
 });
 
@@ -362,7 +363,7 @@ gulp.task('htmlhint', 'Hint HTML files', function () {
                 hasHtmlHintError = true;
             }
         }))
-        .pipe(refresh(server))
+        .pipe(refresh(browser))
         .pipe(size())
         .on('end', errorReporter);
 });
@@ -384,11 +385,12 @@ gulp.task('images', 'Minify the images', function () {
 /**
  * The 'templates' task replace local links with CDN links, minify all project templates and create template cache js file.
  */
-gulp.task('templates', 'Minify html templates and create template cache js file', function() {
+gulp.task('templates', 'Create template cache js file', function() {
     gulp.src(paths.client.templates)
-        .pipe(minifyHtml({empty:true}))
         .pipe(emberTemplates())
-        .pipe(gulp.dest(paths.tmp.scripts));
+        .pipe(concat('ember-templates.js'))
+        .pipe(gulp.dest(paths.tmp.scripts))
+        .pipe(refresh(browser));
 });
 
 /**
@@ -402,16 +404,10 @@ gulp.task('templates', 'Minify html templates and create template cache js file'
  *    html     - minify
  */
 gulp.task('compile', 'Does the same as \'csslint\', \'jshint\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
-    ['csslint', 'jshint', 'htmlhint', 'images'], function () {
+    ['csslint', 'jshint', 'htmlhint', 'images', 'templates'], function () {
         var projectHeader = header(banner, { pkg : pkg, date: new Date } );
 
         return gulp.src(paths.client.html)
-//            .pipe(inject(gulp.src(paths.tmp.scripts + 'templates.js', {read: false}),
-//                {
-//                    starttag: '<!-- inject:templates:js -->',
-//                    ignorePath: [paths.tmp.basePath]
-//                }
-//            ))
             .pipe(usemin({
                 css:        [autoprefixer('last 2 version'), minifyCss(), rev(), projectHeader],
                 css_libs:   [minifyCss(), rev()],
@@ -453,7 +449,7 @@ gulp.task('bower-install', 'Does the same as \'bower\' task but also inject bowe
 gulp.task('watch', 'Watch files for changes', function () {
 
     // Listen on port 35729
-    server.listen(LIVERELOAD_PORT, function (err) {
+    browser.listen(LIVERELOAD_PORT, function (err) {
         if (err) {
             return console.log(err)
         };
@@ -465,7 +461,7 @@ gulp.task('watch', 'Watch files for changes', function () {
             paths.client.fonts
         ], function (event) {
             return gulp.src(event.path)
-                .pipe(refresh(server));
+                .pipe(refresh(browser));
         });
 
         // Watch css files
@@ -475,7 +471,10 @@ gulp.task('watch', 'Watch files for changes', function () {
         gulp.watch(paths.client.scripts, ['jshint']);
 
         // Watch js files
-        gulp.watch([paths.client.html, paths.client.templates], ['htmlhint']);
+        gulp.watch(paths.client.html, ['htmlhint']);
+
+        // Watch js files
+        gulp.watch(paths.client.templates, ['templates']);
 
         // Watch bower file
         gulp.watch('bower.json', ['bower-install']);
@@ -522,10 +521,10 @@ gulp.task('gh-pages', 'Publish \'build\' folder to GitHub \'gh-pages\' branch', 
 //=============================================
 
 /**
- * The 'install' task is to build env and install bower.
+ * The 'install' task is to install and inject bower into index.html and compile hbs ember template.
  */
-gulp.task('install', 'Build env and install bower',  function (cb) {
-    runSequence(['bower-install'], cb);
+gulp.task('install', 'Install and inject bower into index.html and compile hbs ember template',  function (cb) {
+    runSequence(['bower-install'], ['templates'], cb);
 });
 
 /**
@@ -536,7 +535,7 @@ gulp.task('default', 'Build env, install bower dependencies and run watch', func
     isWatching = true;
 
     runSequence(['bower-install'],
-        ['csslint', 'jshint', 'htmlhint', 'watch'],
+        ['csslint', 'jshint', 'htmlhint', 'templates', 'watch'],
         cb);
 });
 
@@ -589,7 +588,7 @@ gulp.task('test:e2e', 'Run e2e tests', ['webdriver_update'], function () {
     gulp.src('./idontexist')
         .pipe(protractor({
             configFile: 'client/test/config/protractor.conf.js',
-            args: ['--baseUrl', APPLICATION_BASE_URL, '--capabilities.browserName', BROWSERS.toLowerCase(), '--env', ENV]
+            args: ['--baseUrl', 'http://localhost:3000', '--capabilities.browserName', BROWSERS.toLowerCase(), '--env', ENV]
         })).on('error', function () {
             // Make sure failed tests cause gulp to exit non-zero
             gutil.log(COLORS.red('Error: E2E test failed'));
