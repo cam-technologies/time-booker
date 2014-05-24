@@ -14,7 +14,7 @@ function init {
     # If we are on Travis CI, set our git credentials to make the travis commits look better
     if [[ "$TRAVIS" == "true" ]]; then
         git config --global user.name 'Travis-CI'
-        git config --global user.email 'camtechdevelopers@gmail.com'
+        git config --global user.email "travis@travis-ci.org"
         BUILD_NUMBER=$TRAVIS_BUILD_NUMBER
         PULL_REQUEST=$TRAVIS_PULL_REQUEST
         COMMIT=$TRAVIS_COMMIT
