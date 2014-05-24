@@ -241,11 +241,6 @@ If for some reason you don't want to run the test but just generate the files - 
 $ gulp build --notest
 ```
 
-If you want to run production code on your local machine you need to run the build task with argument `--nocdn` to point cdn url to your local enviroment:
-```bash
-$ gulp build --nocdn
-```
-
 ## Release
 
 > Before releasing make sure there is no failing Jenkins build for this project. During the release process only [`package.json`](package.json) and [`CHANGELOG.md`](CHANGELOG.md) files should be edited and all steps should be done with **gulp tasks** and **not manually**!
