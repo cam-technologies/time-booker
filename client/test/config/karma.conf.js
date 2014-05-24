@@ -10,6 +10,12 @@ module.exports = function (config) {
     if(isProduction) {
         files = [
             // libraries
+            'client/src/vendor/jquery/dist/jquery.js',
+            'client/src/vendor/handlebars/handlebars.js',
+            'client/src/vendor/bootstrap/dist/js/bootstrap.js',
+            'client/src/vendor/ember/ember.js',
+
+            // libraries
             'build/dist/client/scripts/lib.min-*.js',
 
             // our app
