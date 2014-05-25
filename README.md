@@ -4,6 +4,8 @@ Time-Booker
 
 Web based time booking application, build using the **MEEN** stack. This application will allow users to manually enter work times in blocks of hours and minutes for each day of the week.
 
+[Click here to see it in action!](http://time-booker.herokuapp.com/)
+
 ## Technologies Used
 
 * **Client Side:**

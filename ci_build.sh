@@ -65,7 +65,7 @@ function deploy_to_heroku {
     # Push latest build/dist to heroku
     heroku git:clone -a time-booker heroku/
     cd heroku
-    #git rm -rf .
+    git rm -rf .
     cp -R ../build/dist/* .
     git add -A .
     git commit -m "$1"
