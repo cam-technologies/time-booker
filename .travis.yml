@@ -6,8 +6,8 @@ notifications:
   email:
     recipients:
       - martinmicunda@hotmail.com
-#      - madoliole@gmail.com
-#      - bluntm@gmail.com
+      - madoliole@gmail.com
+      - bluntm@gmail.com
     on_success: never
     on_failure: always
 
@@ -28,11 +28,6 @@ before_install:
 # install dependencies necessary to run this build
 install:
   - npm install --quiet
-
-before_script:
-  - sudo add-apt-repository ppa:git-core/ppa -y
-  - sudo apt-get update
-  - sudo apt-get install git -y
 
 script:
   - bash -ex ./ci_build.sh
