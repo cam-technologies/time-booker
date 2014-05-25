@@ -6,17 +6,19 @@ notifications:
   email:
     recipients:
       - martinmicunda@hotmail.com
-#      - madoliole@gmail.com
-#      - bluntm@gmail.com
+      - madoliole@gmail.com
+      - bluntm@gmail.com
     on_success: never
     on_failure: always
 
 env:
   global:
-    #  travis-encrypt -r cam-technologies/time-booker -k GH_TOKEN -v <https://help.github.com/articles/creating-an-access-token-for-command-line-use> --add env.globa
-    - secure: 'Th/rjtYLkjJXWjxWbUjxhWucs6ujpxJM/yUm0TEgsksf63YHPzk0rzuPskUUHvBq5FxAz/b/IKr2sKXXtfmoarDKQtyT/RpLZ8p/b6yRRA5ANf/brtZNMoAd681u+c/joQTuMgJ9W5v7QFHnhA2ZJYWoCyWycZ8Mo+AZ9/95QQY='
+    # travis-encrypt -r cam-technologies/time-booker -k GH_TOKEN -v <https://help.github.com/articles/creating-an-access-token-for-command-line-use> --add env.globa
+    - secure: Th/rjtYLkjJXWjxWbUjxhWucs6ujpxJM/yUm0TEgsksf63YHPzk0rzuPskUUHvBq5FxAz/b/IKr2sKXXtfmoarDKQtyT/RpLZ8p/b6yRRA5ANf/brtZNMoAd681u+c/joQTuMgJ9W5v7QFHnhA2ZJYWoCyWycZ8Mo+AZ9/95QQY=
     # COVERALLS_REPO_TOKEN
-    - secure: 'O18lTnpJbjXrP4tIh7Esz0lztdEaijw1GRQC3f+bJryGYKce/0HpGNRaDDzCsB7jrabrNz1PLhije2ES5ISCsO41b4Toj0fbOmE6hkRfuaJ1cD4yK8ZdMMNL8eeoZaVhq9EjylXSPMJeSs61bXFZSsXkIQ0w18P1PpGeRhdnQp4='
+    - secure: O18lTnpJbjXrP4tIh7Esz0lztdEaijw1GRQC3f+bJryGYKce/0HpGNRaDDzCsB7jrabrNz1PLhije2ES5ISCsO41b4Toj0fbOmE6hkRfuaJ1cD4yK8ZdMMNL8eeoZaVhq9EjylXSPMJeSs61bXFZSsXkIQ0w18P1PpGeRhdnQp4=
+    # HEROKU_API_KEY
+    - secure: SJuNc5SuYPop8RFlidexRwhLMoHo6TRf1FEGQr3shpTDh4QE2UKEC8JUeFTur86bTCYoReVtQ7n3dMfhBP0U3FZdBoPf//sJhNfRSHJiReUIkD0cIp8MYlDAUpN3xKBwX45fENtnQKQYiiNgDnTodOhICjrBX/N+3OeYQKcTxTU=
 
 # starts xvfb on display port :99.0 (virtual display for Firefox)
 before_install:
