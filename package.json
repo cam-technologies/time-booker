@@ -12,13 +12,15 @@
     "homepage": "https://github.com/cam-technologies/time-booker",
     "main": "server/src/server.js",
     "scripts": {
-        "jshint": "gulp jshint",
+        "jshint:client": "gulp jshint:client",
+        "jshint:server": "gulp jshint:server",
         "htmlhint": "gulp htmlhint",
         "test": "gulp test:unit",
         "dep-check": "david"
     },
     "pre-commit": [
-        "jshint",
+        "jshint:client",
+        "jshint:server",
         "htmlhint",
         "test",
         "dep-check"

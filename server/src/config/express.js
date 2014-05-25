@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * Module dependencies.
@@ -13,7 +13,7 @@ var config          = require('./config');
 module.exports = function (app) {
 
     // initialize static server that will spit out contents of client folder
-    app.use(express.static(__dirname + config.get("publicPath")));
+    app.use(express.static(__dirname + config.get('publicPath')));
     // log every request to the console
     app.use(morgan('dev'));
     // error handler

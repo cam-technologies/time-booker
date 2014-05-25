@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-var express = require('express')
+var express = require('express');
 var app     = express();
 var config  = require('./config/config');
 
@@ -19,9 +19,8 @@ require('./config/express')(app);
 require('./routes/index')(app);
 
 // Start up the server on the port specified in the config
-app.listen(process.env.PORT || config.get("express:port"), function () {
-    console.info(config.get("app:name") + ' app started on port: ' + (process.env.PORT || config.get("express:port"))
-        + ' - with environment: ' + config.get("env"));
+app.listen(process.env.PORT || config.get('express:port'), function () {
+    console.info(config.get('app:name') + ' app started on port: ' + (process.env.PORT || config.get('express:port')) + ' - with environment: ' + config.get('env'));
 });
 
 // Expose app
