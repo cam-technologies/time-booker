@@ -46,20 +46,32 @@ function clean_gh_pages_branch {
 }
 
 function deploy_to_heroku {
-    git fetch --unshallow
-    git rm -rf ./.gitignore
-    git status
-    git add build/dist
-    git commit -m "Add build folder for heroku" --no-verify
+    # Install Heroku CLI
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-    git remote add heroku git@heroku.com:employee-scheduling.git
+    git remote add heroku git@heroku.com:time-booker.git
+
+    # Turn off warnings about SSH keys
     echo "Host heroku.com" >> ~/.ssh/config
     echo "   StrictHostKeyChecking no" >> ~/.ssh/config
     echo "   CheckHostIP no" >> ~/.ssh/config
     echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+
+    # Clear Heroku SSH keys
+    heroku keys:clear
+
+    # Add a new SSH key to Heroku
     yes | heroku keys:add
-#    yes | git subtree push --prefix build/dist/ heroku master
-    yes | git push heroku `git subtree split --prefix build/dist/ master`:master --force
+
+    # Push latest build/dist to heroku
+    heroku git:clone -a time-booker heroku/
+    cd heroku
+    git rm -rf .
+    cp -R ../build/dist/* .
+    git add -A .
+    git commit -m "$1"
+    git push -f heroku master
+    cd ../
+    rm -rf heroku
 }
 
 function run {
@@ -106,6 +118,8 @@ function run {
         # Publish to GitHub gs-pages branch
         gulp gh-pages
 
+        deploy_to_heroku "Deploy release v$TAG_NAME"
+
         echo "##########################################"
         echo "# Complete! Release v$VERSION published! #"
         echo "##########################################"
@@ -138,7 +152,7 @@ function run {
         # Publish to GitHub gs-pages branch
         gulp gh-pages
 
-        # deploy_to_heroku
+        deploy_to_heroku "Deploy prerelease v$NEW_VERSION"
 
         echo "#############################################"
         echo "# Complete! Prerelease v$VERSION published! #"
