@@ -26,6 +26,9 @@
     "eqnull": true,
     "esnext": true,
     "predef": {
+        "alert": true,
+        "localStorage": true,
+        "App": true,
         "document": true,
         "window": true,
         "location": true,

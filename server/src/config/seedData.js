@@ -1,7 +1,7 @@
 'use strict';
 
 var seedData = {};
-seedData['ARTICLES'] = [
+seedData.ARTICLES = [
     {
         id: 1,
         title: 'How to write a JavaScript Framework',
@@ -22,10 +22,10 @@ seedData['ARTICLES'] = [
     }
 ];
 
-seedData['PHOTOS'] = [
-    { id: 1, src: "/images/potd.png" },
-    { id: 2, src: "/images/yohuda.jpg" },
-    { id: 3, src: "/images/easter.jpg" }
+seedData.PHOTOS = [
+    { id: 1, src: '/images/potd.png' },
+    { id: 2, src: '/images/yohuda.jpg' },
+    { id: 3, src: '/images/easter.jpg' }
 ];
 
 module.exports = seedData;

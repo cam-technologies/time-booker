@@ -230,7 +230,7 @@ gulp.task('develop', function () {
     };
 
     nodemon(options)
-        //        .on('change', ['lint'])
+        .on('change', ['jshint:server'])
         .on('restart', function (files) {
             gutil.log('[server] App restarted due to: ', COLORS.cyan(files));
         }).on('stdout', function(raw) {
@@ -308,14 +308,27 @@ gulp.task('csslint', 'Lint CSS files', function () {
 });
 
 /**
- * The 'jshint' task defines the rules of our hinter as well as which files we
+ * The 'jshint' task defines the rules of our hinter for client as well as which files we
  * should check. This file, all javascript sources.
  */
-gulp.task('jshint', 'Hint JavaScripts files', function () {
+gulp.task('jshint:client', 'Hint client JavaScripts files', function () {
     return gulp.src(paths.client.scripts)
-        .pipe(jshint('.jshintrc'))
+        .pipe(jshint('client/.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'))
-//        .pipe(gulpif(!isWatching, jshint.reporter('fail')))
+        .pipe(gulpif(!isWatching, jshint.reporter('fail')))
+        .pipe(refresh(browser))
+        .pipe(size());
+});
+
+/**
+ * The 'jshint' task defines the rules of our hinter for server as well as which files we
+ * should check. This file, all javascript sources.
+ */
+gulp.task('jshint:server', 'Hint server JavaScripts files', function () {
+    return gulp.src(paths.server + 'js')
+        .pipe(jshint('server/.jshintrc'))
+        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(gulpif(!isWatching, jshint.reporter('fail')))
         .pipe(refresh(browser))
         .pipe(size());
 });
@@ -329,7 +342,7 @@ gulp.task('htmlhint', 'Hint HTML files', function () {
 
     var errorReporter = function() {
         if(!isWatching && hasHtmlHintError) {
-//            return process.exit(1);
+            return process.exit(1);
         }
     };
 
@@ -404,7 +417,7 @@ gulp.task('templates', 'Create template cache js file', function() {
  *    html     - minify
  */
 gulp.task('compile', 'Does the same as \'csslint\', \'jshint\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
-    ['csslint', 'jshint', 'htmlhint', 'images', 'templates'], function () {
+    ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'images', 'templates'], function () {
         var projectHeader = header(banner, { pkg : pkg, date: new Date } );
 
         return gulp.src(paths.client.html)
@@ -446,7 +459,7 @@ gulp.task('bower-install', 'Does the same as \'bower\' task but also inject bowe
  * the command-line every time we want to see what we're working on; we can
  * instead just leave "gulp watch" running in a background terminal.
  */
-gulp.task('watch', 'Watch files for changes', function () {
+gulp.task('watch', 'Watch client files for changes', function () {
 
     // Listen on port 35729
     browser.listen(LIVERELOAD_PORT, function (err) {
@@ -468,7 +481,7 @@ gulp.task('watch', 'Watch files for changes', function () {
         gulp.watch(paths.client.styles, ['csslint']);
 
         // Watch js files
-        gulp.watch(paths.client.scripts, ['jshint']);
+        gulp.watch(paths.client.scripts, ['jshint:client']);
 
         // Watch js files
         gulp.watch(paths.client.html, ['htmlhint']);
@@ -535,7 +548,7 @@ gulp.task('default', 'Build env, install bower dependencies and run watch', func
     isWatching = true;
 
     runSequence(['bower-install'],
-        ['csslint', 'jshint', 'htmlhint', 'templates', 'watch'],
+        ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'templates', 'watch'],
         cb);
 });
 
@@ -621,7 +634,7 @@ gulp.task('build', 'Build application for deployment', function (cb) {
 /**
  * Bump version number in package.json & bower.json.
  */
-gulp.task('bump', 'Bump version number in package.json & bower.json', ['csslint', 'jshint', 'htmlhint', 'test:unit'], function () {
+gulp.task('bump', 'Bump version number in package.json & bower.json', ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'test:unit'], function () {
     var HAS_REQUIRED_ATTRIBUTE = !!argv.type ? !!argv.type.match(new RegExp(/major|minor|patch/)) : false;
 
     if (!HAS_REQUIRED_ATTRIBUTE) {

@@ -1,3 +1,5 @@
+'use strict';
+
 // RESTful API Handlers
 var handlers = {
     index: require('../controllers/index')
@@ -18,7 +20,7 @@ module.exports = function (app) {
             username = body.username,
             password = body.password;
 
-        if (username == 'ember' && password == 'casts') {
+        if (username === 'ember' && password === 'casts') {
             // Generate and save the token (forgotten upon server restart).
             currentToken = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             res.send({
@@ -38,7 +40,7 @@ module.exports = function (app) {
         // Check POST, GET, and headers for supplied token.
         var userToken = req.body.token || req.param('token') || req.headers.token;
 
-        if (!currentToken || userToken != currentToken) {
+        if (!currentToken || userToken !== currentToken) {
             res.send(401, { error: 'Invalid token. You provided: ' + userToken });
             return false;
         }
@@ -48,14 +50,14 @@ module.exports = function (app) {
 
     app.get('/articles.json', function (req, res) {
         if (validTokenProvided(req, res)) {
-            res.send(seedData['ARTICLES']);
+            res.send(seedData.ARTICLES);
         }
     });
 
     // Returns URL to pic of the day.
     app.get('/photos.json', function (req, res) {
         if (validTokenProvided(req, res)) {
-            res.send(seedData['PHOTOS']);
+            res.send(seedData.PHOTOS);
         }
     });
 };
