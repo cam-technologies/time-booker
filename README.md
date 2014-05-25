@@ -50,15 +50,16 @@ Web based time booking application, build using the **MEEN** stack. This applica
       |  |  |- config/                  --> configuration files for unit (karma) and e2e (protactor) tests
       |  |  |- e2e/                     --> e2e test files
       |  |  |- unit/                    --> unit test files
+      |  |- .jshintrc               --> JavaScript code quality tool for client code
       |- server/                --> all server code   
       |  |- src/                    --> server source code files
       |  |- test/                   --> server test code
-      |     |- config/                  --> configuration files for unit (karma) test
-      |     |- unit/                    --> unit test files
+      |  |  |- config/                  --> configuration files for unit (karma) test
+      |  |  |- unit/                    --> unit test files
+      |  |- .jshintrc               --> JavaScript code quality tool for server code
       |- .bowerrc               --> specify where bower dependencies should be installed
       |- .editorconfig          --> define and maintain consistent coding styles between different editors
       |- .gitignore             --> specify directories and files to be to ignored by git
-      |- .jshintrc              --> JavaScript code quality tool 
       |- bower.json             --> specify client site dependencies
       |- CHANGELOG.md           --> record of changes made to a project
       |- gulpfile.js            --> front-end and JavaScript workflow tasks runner
@@ -156,10 +157,11 @@ The best way to learn about the gulp tasks is by familiarizing yourself with [Gu
 ###Sub Tasks:###
 | Command                          | Description | 
 | -------------------------------- | ----------- | 
-| `gulp clean` | will delete `build` and `.tmp` directories | 
+| `gulp clean` | will delete `build` and `client/src/tmp` directories | 
 | `gulp copy` | will copy project files that haven't been copied by 'compile' task e.g. (fonts, etc.) into 'build' folder | 
 | `gulp csslint` | will run linter against css files in `client/src/assets/styles` | 
-| `gulp jshint` | will run linter against javascript files |
+| `gulp jshint:client` | will run linter against client javascript files |
+| `gulp jshint:server` | will run linter against server javascript files |
 | `gulp htmlhint` | will run linter against html files | 
 | `gulp images` | will minify images `client/src/assets/images` |
 | `gulp templates` | |
