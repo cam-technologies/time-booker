@@ -5,7 +5,7 @@ echo "####      CI Build     ##########"
 echo "#################################"
 
 # Enable tracing and exit on first failure
-set -xe
+set -e
 
 ARG_DEFS=(
 )
@@ -34,7 +34,7 @@ function init {
     fi
 }
 
-function clean_gh_pages_branch {
+function cleanGhPagesBranch {
     git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/cam-technologies/time-booker.git gh-pages/
     cd gh-pages
     git rm -rf .
@@ -45,7 +45,7 @@ function clean_gh_pages_branch {
     rm -rf gh-pages
 }
 
-function deploy_to_heroku {
+function deployToHeroku {
     # Install Heroku CLI
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
     git remote add heroku git@heroku.com:time-booker.git
@@ -109,7 +109,7 @@ function run {
         TAG_NAME="v$VERSION"
 
         # Remove old artifacts from gh-pages branch
-        clean_gh_pages_branch "Remove old artifacts and preparing branch for release v$TAG_NAME"
+        cleanGhPagesBranch "Remove old artifacts and preparing branch for release v$TAG_NAME"
 
         # Create and push the tag to Github
         git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
@@ -118,7 +118,7 @@ function run {
         # Publish to GitHub gs-pages branch
         gulp gh-pages
 
-        deploy_to_heroku "Deploy release v$TAG_NAME"
+        deployToHeroku "Deploy release v$TAG_NAME"
 
         echo "##########################################"
         echo "# Complete! Release v$VERSION published! #"
@@ -136,7 +136,7 @@ function run {
         NEW_VERSION="$VERSION-build.$BUILD_NUMBER"
 
         # Remove old artifacts from gh-pages branch
-        clean_gh_pages_branch "Remove old artifacts and preparing branch for prerelease v$NEW_VERSION"
+        cleanGhPagesBranch "Remove old artifacts and preparing branch for prerelease v$NEW_VERSION"
 
         replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"
@@ -152,7 +152,7 @@ function run {
         # Publish to GitHub gs-pages branch
         gulp gh-pages
 
-        deploy_to_heroku "Deploy prerelease v$NEW_VERSION"
+        deployToHeroku "Deploy prerelease v$NEW_VERSION"
 
         echo "#############################################"
         echo "# Complete! Prerelease v$VERSION published! #"
