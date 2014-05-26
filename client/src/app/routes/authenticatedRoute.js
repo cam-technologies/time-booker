@@ -1,13 +1,12 @@
-(function(){
-    App.AuthenticatedRoute = Ember.Route.extend({
+App.AuthenticatedRoute = Ember.Route.extend({
 
-    beforeModel: function(transition) {
+    beforeModel: function (transition) {
         if (!this.controllerFor('login').get('token')) {
             this.redirectToLogin(transition);
         }
     },
 
-    redirectToLogin: function(transition) {
+    redirectToLogin: function (transition) {
         alert('You must log in!');
 
         var loginController = this.controllerFor('login');
@@ -15,7 +14,7 @@
         this.transitionTo('login');
     },
 
-    getJSONWithToken: function(url) {
+    getJSONWithToken: function (url) {
         var token = this.controllerFor('login').get('token');
         return $.getJSON(url, {
             token: token
@@ -23,7 +22,7 @@
     },
 
     actions: {
-        error: function(reason, transition) {
+        error: function (reason, transition) {
             if (reason.status === 401) {
                 this.redirectToLogin(transition);
             }
@@ -33,4 +32,3 @@
         }
     }
 });
-})();
