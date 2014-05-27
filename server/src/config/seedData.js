@@ -23,9 +23,9 @@ seedData.ARTICLES = [
 ];
 
 seedData.PHOTOS = [
-    { id: 1, src: '/images/potd.png' },
-    { id: 2, src: '/images/yohuda.jpg' },
-    { id: 3, src: '/images/easter.jpg' }
+    { id: 1, src: 'assets/images/potd.png' },
+    { id: 2, src: 'assets/images/yohuda.jpg' },
+    { id: 3, src: 'assets/images/easter.jpg' }
 ];
 
 module.exports = seedData;
