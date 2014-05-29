@@ -583,6 +583,10 @@ gulp.task('test:e2e', 'Run Client E2E Tests', function() {
         .pipe(qunit());
 });
 
+gulp.task('test', 'Run both unit and E2E tests', function() {
+    runSequence(['test:unit','test:e2e']);
+})
+
 
 //gulp.task('test:e2e', 'Run e2e tests', ['webdriver_update'], function () {
 //    //TODO: (martin) remove this code once the issue with PhantomJS is resolved. This code is already declared at the top of this file.
