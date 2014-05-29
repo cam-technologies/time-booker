@@ -43,10 +43,11 @@ module.exports = function (config) {
             // our app
             // TODO (martin): we need to remove the code that is not using in app folder as the test is failing for some reason
             'client/src/app/app.js',
-            'client/src/app/authenticatedRoute.js',
-            'client/src/app/acticlesRoute.js',
-            'client/src/app/loginRoute.js',
-            'client/src/app/photosRoute.js',
+            'client/src/app/routes.js',
+            'client/src/app/routes/authenticatedRoute.js',
+            'client/src/app/routes/articlesRoute.js',
+            'client/src/app/routes/loginRoute.js',
+            'client/src/app/routes/photosRoute.js',
 //            'client/src/app/**/*.js',
 
 //            'client/src/app/templates/**/*.{hbs,hjs,handlebars}',
