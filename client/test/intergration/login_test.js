@@ -17,7 +17,9 @@ QUnit.testStart(function () {
 });
 
 
-module('Login page', function() {});
+module('Login page', function() {
+    setup: App.reset();
+});
 
 test('Display welcome message', function() {
     visit('/').find('h1').then(function(el) {
@@ -26,7 +28,11 @@ test('Display welcome message', function() {
 });
 
 
-test('Simple test', function() {
-    equal(1, 1, 'Must be equal');
-});
+test('Should display links for Articles, Photos and Login', function() {
+    visit('/').find('a').then(function(el) {
+        equal(el[0].getText(), 'Articles', 'Articles link must be present');
+        equal(el[0].getText(), 'Photos', 'Photos link must be present');
+        equal(el[0].getText(), 'Login', 'Login link must be present');
+    })
+})
 

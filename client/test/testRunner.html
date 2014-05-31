@@ -1,19 +1,27 @@
-<link rel="stylesheet" href="../src/vendor/qunit/qunit/qunit.css"/>
-<!-- Test output goes here. -->
-<div id="qunit"></div>
-<div id="ember-container">
-    <div id="ember-testing"></div>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Peepcode Ordr Tests</title>
+    <meta name="viewport" content="width=device-width" />
 
-<!-- Handlebars templates for our application. -->
-<script type="text/x-handlebars">
-    <h1>Testing Ember.js with QUnit</h1>
-    {{outlet}}
-</script>
-<script type="text/x-handlebars" data-template-name="index">
-</script>
-<!-- Application code -->
-<script src="../src/vendor/qunit/qunit/qunit.js"></script>
+    <link rel="stylesheet" href="../src/vendor/qunit/qunit/qunit.css"/>
+    <style type="text/css">
+        #qunit-fixture, #app-root {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: auto;
+            height: auto;
+        }
+    </style>
+
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+
+<!-- Dependencies, App and Templates -->
 <script src="../src/vendor/jquery/dist/jquery.js"></script>
 <script src="../src/vendor/bootstrap/dist/js/bootstrap.js"></script>
 <script src="../src/vendor/handlebars/handlebars.js"></script>
@@ -24,38 +32,17 @@
 <script src="../src/app/routes/articlesRoute.js"></script>
 <script src="../src/app/routes/loginRoute.js"></script>
 <script src="../src/app/routes/photosRoute.js"></script>
-<!-- Tests -->
-<script src="intergration/login_test.js"></script>
-<script>
-//    // put app in qunit-fixture
-//    App.rootElement =  '#ember-testing';
-//
-//    // turn on testing mode
-//    App.setupForTesting();
-//
-//    App.injectTestHelpers();
 
-//    // Run before each test case.
-//    QUnit.testStart(function () {
-//        // Put the application into a known state, and destroy the defaultStore.
-//        // Be careful about DS.Model instances stored in App; they'll be invalid
-//        // after this.
-//        // This is broken in some versions of Ember and Ember Data, see:
-//        // https://github.com/emberjs/data/issues/847
-//        Ember.run(function () { App.reset(); });
-//        // Display an error if asynchronous operations are queued outside of
-//        // Ember.run.  You need this if you want to stay sane.
-//        Ember.testing = true;
-//    });
-//
-//    // Run after each test case.
-//    QUnit.testDone(function () {
-//        Ember.testing = false;
-//    });
-//
-//    // Optional: Clean up after our last test so you can try out the app
-//    // in the jsFiddle.  This isn't normally required.
-//    QUnit.done(function () {
-//        Ember.run(function () { App.reset(); });
-//    });
-</script>
+<!-- Test Helpers -->
+<script src="./support/test_helper.js"></script>
+
+<!-- Test Library -->
+<script src="../src/vendor/qunit/qunit/qunit.js"></script>
+
+<!-- Functional Tests -->
+<script src="intergration/login_test.js"></script>
+
+<!-- Unit Tests -->
+
+</body>
+</html>
