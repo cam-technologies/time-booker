@@ -590,26 +590,6 @@ gulp.task('test', 'Run both unit and E2E tests', function() {
 })
 
 
-//gulp.task('test:e2e', 'Run e2e tests', ['webdriver_update'], function () {
-//    //TODO: (martin) remove this code once the issue with PhantomJS is resolved. This code is already declared at the top of this file.
-//    var BROWSERS = !!argv.browsers ? argv.browsers : 'chrome';
-////    if(!BROWSERS.match(new RegExp(/phantomjs|chrome|firefox|safari/))) {
-////        gutil.log(COLORS.red('Error: The argument \'browsers\' has incorrect value \'' + BROWSERS +'\'! Usage: gulp test:unit --env=(phantomjs|chrome|firefox|safari)'));
-////        return process.exit(1);
-////    }
-//
-//    //TODO: (martin) might also use this plugin https://www.npmjs.org/package/gulp-protractor-qa
-//    gulp.src('./idontexist')
-//        .pipe(protractor({
-//            configFile: 'client/test/config/protractor.conf.js',
-//            args: ['--baseUrl', 'http://localhost:3000', '--capabilities.browserName', BROWSERS.toLowerCase(), '--env', ENV]
-//        })).on('error', function () {
-//            // Make sure failed tests cause gulp to exit non-zero
-//            gutil.log(COLORS.red('Error: E2E test failed'));
-//            return process.exit(1);
-//        });
-//});
-
 /**
  * The 'compile' task gets app ready for deployment by concatenating,
  * minifying etc.
