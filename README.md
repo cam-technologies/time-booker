@@ -26,9 +26,9 @@ Web based time booking application, build using the **MEEN** stack. This applica
     * [Travis CI](https://travis-ci.org/)
 
 * **Test:**
-    * [Jasmine](http://pivotal.github.io/jasmine/)
+    * [Qunit](http://qunitjs.com/)
     * [Karma](http://karma-runner.github.io/)
-    * [Protractor](http://github.com/angular/protractor/)
+    * [Phantom](http://phantomjs.org/)
     * [Selenium](http://www.seleniumhq.org/)
 
 ## Directory Layout
@@ -89,7 +89,9 @@ Web based time booking application, build using the **MEEN** stack. This applica
 
 ### Platform & tools
 
-You need to install Node.js and then the development tools. Node.js comes with a package manager called [npm](http://npmjs.org) (requires npm version >= 1.3.0 for this project) for installing NodeJS applications and libraries.
+You need to install Node.js and then the development tools. Node.js comes with a package manager called
+[npm](http://npmjs.org) (requires npm version >= 1.3.0 for this project) for installing NodeJS applications and libraries.
+Note you should run these commands as admin.
 * [Install node.js](http://nodejs.org/download/) (requires node.js version >= 0.10.0)
 * [Install Gulp](http://gulpjs.com/) as global npm modules (requires node.js version >= 0.10.0):
 
@@ -181,6 +183,7 @@ The main gulp tasks are descriptive more in `development`, `test`, `build` and `
 | `gulp` | will run default task that watches for changes and run `jshint`, `csslint`, `htmlhint` |
 | `gulp test:e2e` | will run e2e tests |
 | `gulp test:unit` | will run unit tests |
+| `gulp test` | will run both the e2e and unit test tasks |
 | `gulp build` | will create build that is ready for uploading to the server |
 | `gulp bump` | will increment version number in [`package.json`](package.json) and [`bower.json`](bower.json)|
 | `gulp changelog` | will generate changelog in [`CHANGELOG.md`](CHANGELOG.md) |
@@ -223,7 +226,6 @@ App test-reports (coverage, failure screenshots etc.) can be found under `build/
 * **E2E test examples:**
 
    This will run test against `PhantomJS` with your application running on `development` server:
-   **TODO (martin)** at the moment default browser is set to Chrome because there is an issue with PhantomJS and protractor
    ```bash
    $ gulp test:e2e
    ```

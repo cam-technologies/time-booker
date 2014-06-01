@@ -57,7 +57,8 @@ var emberTemplates       = require('gulp-ember-templates');
 var coverageEnforcer     = require("gulp-istanbul-enforcer");
 var webdriver_update     = require('gulp-protractor').webdriver_update;
 var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
-var qunit = require('gulp-qunit');
+var qunit                = require('gulp-qunit');
+var replace              = require('gulp-replace');
 
 
 //=============================================
@@ -266,8 +267,8 @@ gulp.task('clean', 'Delete \'build\' and \'.tmp\' directories', function () {
  */
 gulp.task('copy', 'Copy project files that haven\'t been copied by \'compile\' task e.g. (fonts, etc.) into \'build\' folder.', function () {
     gulp.src([
-        'client/src/*.{ico,png,txt}'
-    ])
+            'client/src/*.{ico,png,txt}'
+        ])
         .pipe(gulp.dest(paths.build.dist.client.basePath));
     gulp.src(paths.client.fonts)
         .pipe(gulp.dest(paths.build.dist.client.fonts));
@@ -334,6 +335,10 @@ gulp.task('jshint:server', 'Hint server JavaScripts files', function () {
         .pipe(size());
 });
 
+gulp.task('jshint', 'Hint the client and server files', function(cb) {
+    runSequence(['jshint:client', 'jshint:server'], cb);
+});
+
 /**
  * The 'htmlhint' task defines the rules of our hinter as well as which files we
  * should check. This file, all html sources.
@@ -347,7 +352,7 @@ gulp.task('htmlhint', 'Hint HTML files', function () {
         }
     };
 
-    return gulp.src([paths.client.html, paths.client.templates])
+    return gulp.src([paths.client.html])
         .pipe(htmlhint('.htmlhintrc'))
         .pipe(htmlhint.reporter(function(file) {
             if(!file.htmlhint.success) {
@@ -402,6 +407,7 @@ gulp.task('images', 'Minify the images', function () {
 gulp.task('templates', 'Create template cache js file', function() {
     gulp.src(paths.client.templates)
         .pipe(emberTemplates())
+        .pipe(replace('templates/', ''))//Need to remove the 'template/' to allow ember to render the templates
         .pipe(concat('ember-templates.js'))
         .pipe(gulp.dest(paths.tmp.scripts))
         .pipe(refresh(browser));
@@ -598,29 +604,7 @@ gulp.task('test:e2e', 'Run Client E2E Tests', function() {
 
 gulp.task('test', 'Run both unit and E2E tests', function() {
     runSequence(['test:unit','test:e2e']);
-})
-
-
-//gulp.task('test:e2e', 'Run e2e tests', ['webdriver_update'], function () {
-//    //TODO: (martin) remove this code once the issue with PhantomJS is resolved. This code is already declared at the top of this file.
-//    var BROWSERS = !!argv.browsers ? argv.browsers : 'chrome';
-////    if(!BROWSERS.match(new RegExp(/phantomjs|chrome|firefox|safari/))) {
-////        gutil.log(COLORS.red('Error: The argument \'browsers\' has incorrect value \'' + BROWSERS +'\'! Usage: gulp test:unit --env=(phantomjs|chrome|firefox|safari)'));
-////        return process.exit(1);
-////    }
-//
-//    //TODO: (martin) might also use this plugin https://www.npmjs.org/package/gulp-protractor-qa
-//    gulp.src('./idontexist')
-//        .pipe(protractor({
-//            configFile: 'client/test/config/protractor.conf.js',
-//            args: ['--baseUrl', 'http://localhost:3000', '--capabilities.browserName', BROWSERS.toLowerCase(), '--env', ENV]
-//        })).on('error', function () {
-//            // Make sure failed tests cause gulp to exit non-zero
-//            gutil.log(COLORS.red('Error: E2E test failed'));
-//            return process.exit(1);
-//        });
-//});
-
+});
 /**
  * The 'compile' task gets app ready for deployment by concatenating,
  * minifying etc.
