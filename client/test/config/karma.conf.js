@@ -46,7 +46,7 @@ module.exports = function (config) {
             'client/src/app/app.js',
 
 //            'client/src/app/templates/**/*.{hbs,hjs,handlebars}',
-            'client/src/app/templates/application.hbs',
+//            'client/src/app/templates/application.hbs',
 
             // tests
             'client/test/unit/**/*_test.js'
