@@ -335,6 +335,10 @@ gulp.task('jshint:server', 'Hint server JavaScripts files', function () {
         .pipe(size());
 });
 
+gulp.task('jshint', 'Hint the client and server files', function(cb) {
+    runSequence(['jshint:client', 'jshint:server'], cb);
+});
+
 /**
  * The 'htmlhint' task defines the rules of our hinter as well as which files we
  * should check. This file, all html sources.
@@ -348,7 +352,7 @@ gulp.task('htmlhint', 'Hint HTML files', function () {
         }
     };
 
-    return gulp.src([paths.client.html, paths.client.templates])
+    return gulp.src([paths.client.html])
         .pipe(htmlhint('.htmlhintrc'))
         .pipe(htmlhint.reporter(function(file) {
             if(!file.htmlhint.success) {
