@@ -21,18 +21,18 @@ module('Login page', function() {
     setup: App.reset();
 });
 
-test('Display welcome message', function() {
-    visit('/').find('h1').then(function(el) {
-        equal(el.length, 1, 'H1 tag must be present');
-    });
-});
+//test('Display welcome message', function() {
+//    visit('/').find('h1').then(function(el) {
+//        equal(el.length, 1, 'H1 tag must be present');
+//    });
+//});
 
 
-test('Should display links for Articles, Photos and Login', function() {
-    visit('/').find('a').then(function(el) {
-        equal(el[0].getText(), 'Articles', 'Articles link must be present');
-        equal(el[0].getText(), 'Photos', 'Photos link must be present');
-        equal(el[0].getText(), 'Login', 'Login link must be present');
-    })
-})
+//test('Should display links for Articles, Photos and Login', function() {
+//    visit('/').find('a').then(function(el) {
+//        equal(el[0].getText(), 'Articles', 'Articles link must be present');
+//        equal(el[0].getText(), 'Photos', 'Photos link must be present');
+//        equal(el[0].getText(), 'Login', 'Login link must be present');
+//    })
+//})
 

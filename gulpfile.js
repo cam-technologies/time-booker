@@ -58,6 +58,7 @@ var coverageEnforcer     = require("gulp-istanbul-enforcer");
 var webdriver_update     = require('gulp-protractor').webdriver_update;
 var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
 var qunit = require('gulp-qunit');
+var replace = require('gulp-replace');
 
 
 //=============================================
@@ -389,6 +390,7 @@ gulp.task('images', 'Minify the images', function () {
 gulp.task('templates', 'Create template cache js file', function() {
     gulp.src(paths.client.templates)
         .pipe(emberTemplates())
+        .pipe(replace('templates/', ''))//Need to remove the 'template/' to allow ember to render the templates
         .pipe(concat('ember-templates.js'))
         .pipe(gulp.dest(paths.tmp.scripts))
         .pipe(refresh(browser));

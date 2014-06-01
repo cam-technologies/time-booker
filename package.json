@@ -108,7 +108,8 @@
     "you-shall-not-commit": "^0.0.1",
     "david": "^3.1.0",
     "semver": "^2.3.0",
-    "gulp-qunit": "~0.3.3"
+    "gulp-qunit": "~0.3.3",
+    "gulp-replace": "~0.3.0"
   },
   "license": "MIT",
   "engines": {
