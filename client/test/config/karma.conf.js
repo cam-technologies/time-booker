@@ -42,13 +42,11 @@ module.exports = function (config) {
 
             // our app
             // TODO (martin): we need to remove the code that is not using in app folder as the test is failing for some reason
-//            'client/src/tmp/scripts/ember-templates.js',
-//            'client/src/app/app.js',
-//            'client/src/app/routes.js',
-//            'client/src/app/routes/authenticatedRoute.js',
-//            'client/src/app/routes/articlesRoute.js',
-//            'client/src/app/routes/loginRoute.js',
-//            'client/src/app/routes/photosRoute.js',
+//            'client/src/app/**/*.js',
+            'client/src/app/app.js',
+
+//            'client/src/app/templates/**/*.{hbs,hjs,handlebars}',
+            'client/src/app/templates/application.hbs',
 
             // tests
             'client/test/unit/**/*_test.js'
