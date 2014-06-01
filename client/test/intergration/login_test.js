@@ -5,18 +5,6 @@
  * Time: 20:48
  * To change this template use File | Settings | File Templates.
  */
-// put app in qunit-fixture
-App.rootElement =  '#ember-testing';
-// turn on testing mode
-App.setupForTesting();
-App.injectTestHelpers();
-
-QUnit.testStart(function () {
-        Ember.run(function () { App.reset(); });
-        Ember.testing = true;
-});
-
-
 module('Login page', function() {});
 
 test('Display welcome message', function() {
@@ -26,7 +14,12 @@ test('Display welcome message', function() {
 });
 
 
-test('Simple test', function() {
-    equal(1, 1, 'Must be equal');
-});
+test('Should display links for Ember Digest, Articles, Photos and Login', function() {
+    visit('/').find('a').then(function(el) {
+        equal(el[0].innerText, 'Ember Digest', 'Ember Digest link must be present');
+        equal(el[1].innerText, 'Articles', 'Articles link must be present');
+        equal(el[2].innerText, 'Photos', 'Photos link must be present');
+        equal(el[3].innerText, 'Login', 'Login link must be present');
+    })
+})
 
