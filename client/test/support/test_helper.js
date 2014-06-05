@@ -38,4 +38,17 @@
     App.setupForTesting();
     App.injectTestHelpers();
 
+    // Run before each test case.
+    QUnit.testStart(function () {
+        Ember.run(function () { App.reset(); });
+        // Display an error if asynchronous operations are queued outside of
+        // Ember.run.  You need this if you want to stay sane.
+        Ember.testing = true;
+    });
+
+    // Run after each test case.
+    QUnit.testDone(function () {
+        Ember.testing = false;
+    });
+
 }(window));
