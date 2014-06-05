@@ -3,9 +3,9 @@
 {{else}}
     <form class="form-inline" {{action login on="submit"}}>
         <h2>Log In</h2>
-        {{input value=username type="text" placeholder="Username"}}
-        {{input value=password type="password" placeholder="Password"}}
-        {{input class="btn" type="submit" value="Log In"}}
+        {{input id='username' value=username type="text" placeholder="Username"}}
+        {{input id='password' value=password type="password" placeholder="Password"}}
+        {{input id='loginSubmit' class="btn" type="submit" value="Log In"}}
     </form>
     {{#if errorMessage}}
         <div class="alert alert-error">{{errorMessage}}</div>
