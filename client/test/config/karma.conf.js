@@ -14,6 +14,7 @@ module.exports = function (config) {
             'client/src/vendor/handlebars/handlebars.js',
             'client/src/vendor/bootstrap/dist/js/bootstrap.js',
             'client/src/vendor/ember/ember.js',
+            'client/src/vendor/ic-ajax/dist/globals/main.js',
 
             // libraries
             'build/dist/client/scripts/lib.min-*.js',
@@ -39,6 +40,7 @@ module.exports = function (config) {
             'client/src/vendor/handlebars/handlebars.js',
             'client/src/vendor/bootstrap/dist/js/bootstrap.js',
             'client/src/vendor/ember/ember.js',
+            'client/src/vendor/ic-ajax/dist/globals/main.js',
 
             // our app
             // TODO (martin): we need to remove the code that is not using in app folder as the test is failing for some reason

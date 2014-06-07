@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
  
-module('Login Page', {
+module('Splash Page', {
   setup: function(){
   Ember.run(this, function () {
       //
@@ -47,6 +47,45 @@ test('Should go to login route if login link is clicked', function() {
   });
 });
 
+module('Login Page', {
+  setup: function() {
+    ajax.defineFixture('/auth.json', {
+      response: {
+          success: true,
+          token: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        },
+        jqXHR: {},
+        textStatus: 'success'
+    });
+
+    ajax.defineFixture('/articles.json', {
+      response: [
+        {
+            id: 1,
+            title: 'How to write a JavaScript Framework',
+            author: 'Tomhuda Katzdale',
+            body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        },
+        {
+            id: 2,
+            title: 'Chronicles of an Embereño',
+            author: 'Alerik Bryneer',
+            body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        },
+        {
+            id: 3,
+            title: 'The Eyes of Thomas',
+            author: 'Yehuda Katz',
+            body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        }
+    ],
+    jqXHRL: {},
+    textStatus: 'success'
+    })
+  },
+  teardown: function() {}
+});
+
 test('Should check the login form exists', function() {
   expect(3);
   visit('/login');
@@ -60,32 +99,16 @@ test('Should check the login form exists', function() {
   });
 });
 
-//@TODO: 
-//  work out how to incorportate https://github.com/trek/ember-testing-httpRespond 
-//  into our code so we can do httpRespond like below and fake the http post
+test('Should fill in login form with correct credentials and click submit', function() {
+  expect(1);
+  visit('/login');
+  fillIn('#username', 'ember');
+  fillIn('#password', 'casts');
+  click('#loginSubmit');
+  andThen(function() {
+    equal(currentRouteName(), 'articles');
+  });
+});
 
-// test('Should fill in login form with correct credentials and click submit', function() {
-//   visit('/login');
-//   fillIn('#username', 'ember');
-//   fillIn('#password', 'casts');
-//   Ember.run(function() {
-//     click('#loginSubmit');
-//     httpRespond('post', '/auth.json', { success: true, token:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'});
-//   });
-//      andThen(function() {
-//     equal(currentRouteName(), 'articles');
-//   });
-// });
-
-// test('Should fill in login form with wrong credentials and click submit', function() {
-//   visit('/login');
-//   fillIn('#username', 'Andrew');
-//   fillIn('#password', 'p4$$w0rd');
-//   click('#loginSubmit');
-
-//   andThen(function() {
-//     equal(currentRouteName(), 'login');
-//   })
-// });
    
 
