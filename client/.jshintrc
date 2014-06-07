@@ -36,6 +36,8 @@
         "Ember": true,
         "Em": true,
         "DS": true,
-        "$": true
+        "$": true,
+        "ajax": true,
+        "ic":true
     }
 }
