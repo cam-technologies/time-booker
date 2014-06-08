@@ -24,11 +24,10 @@ test('Display welcome message', function() {
 
 
 test('Should display links for Ember Digest, Articles, Photos and Login', function() {
-  expect(4);
+  expect(3);
   visit('/');
   andThen(function() {
     var el = find('a');
-    equal(el[0].innerText, 'Ember Digest', 'Ember Digest link must be present');
     equal(el[1].innerText, 'Articles', 'Articles link must be present');
     equal(el[2].innerText, 'Photos', 'Photos link must be present');
     equal(el[3].innerText, 'Login', 'Login link must be present');
