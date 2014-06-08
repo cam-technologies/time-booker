@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/martinmicunda/tweet-map.png)](http://travis-ci.org/martinmicunda/tweet-map) [![Dependency Status](https://david-dm.org/cam-technologies/time-booker.png)](https://david-dm.org/cam-technologies/time-bookerp) [![devDependency Status](https://david-dm.org/cam-technologies/time-booker/dev-status.png)](https://david-dm.org/cam-technologies/time-booker#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/cam-technologies/time-booker/badge.png)](https://coveralls.io/r/cam-technologies/time-booker)
+[![Build Status](https://travis-ci.org/cam-technologies/time-booker.svg?branch=master)](https://travis-ci.org/cam-technologies/time-booker) [![Dependency Status](https://david-dm.org/cam-technologies/time-booker.png)](https://david-dm.org/cam-technologies/time-bookerp) [![devDependency Status](https://david-dm.org/cam-technologies/time-booker/dev-status.png)](https://david-dm.org/cam-technologies/time-booker#info=devDependencies) [![Coverage Status](https://coveralls.io/repos/cam-technologies/time-booker/badge.png)](https://coveralls.io/r/cam-technologies/time-booker)
 Time-Booker
 ===========
 
