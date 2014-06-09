@@ -106,7 +106,7 @@ if(!BROWSERS.match(new RegExp(/PhantomJS|Chrome|Firefox|Safari/))) {
 //            PRINT INFO MESSAGE
 //=============================================
 gutil.log(gutil.colors.blue('********** RUNNING IN ' + ENV + ' ENVIROMENT **********'));
-
+gutil.log(gutil.colors.blue('********** DEBUG TOKEN **********' + process.env.GH_TOKEN));
 
 //=============================================
 //            DECLARE PATHS
