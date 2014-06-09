@@ -202,8 +202,6 @@ This default gulp task will install bower dependencies, build dev enviroment, mo
 ```
 
 ## Test
-The `test:unit` and `test:e2e` tasks have optional arguments `--browsers=(PhantomJS|Chrome|Firefox|Safari)` and `--env=(development|production)`. If you don't specify these optional arguments then the default value for `--browsers` is `PhantomJS` and default value for `--env` is `development`.
-
 App test-reports (coverage, failure screenshots etc.) can be found under `build/test-reports/` directory.
 
 * **Unit test examples:**
@@ -223,18 +221,18 @@ App test-reports (coverage, failure screenshots etc.) can be found under `build/
    ```
    > NOTE: Verify that the browsers you want to run test against are installed on your local machine. The `PhantomJS` should be already installed after you run `npm install`.
 
-* **E2E test examples:**
+* **E2E test:**
 
-   This will run test against `PhantomJS` with your application running on `development` server:
+   The E2E tests will run via the qunit test runner via the bowser or gulp
    ```bash
    $ gulp test:e2e
    ```
-   > NOTE: Verify that you are not running application before executing the above command as `protractor` will start and stop application for e2e test running in `development` mode.
-   
-   This will run test against `Chrome` with your application running on `production` server:
-   ```bash
-   $ gulp test:e2e --browsers=Chrome --env=production
-   ```   
+   Running via the browser:
+   open testRunner.html in your browser and the tests will run, when running the tests in the browser you will need to clear the local storage after every run.
+   Open the browser console and run the following:
+   ```javascript
+   localStorage.clear();
+   ```
 
 ## Build
 The build task get app ready for production. The build task include test:unit, test:e2e, concatenation, minification, compression, cdn etc. If there have been no errors when executing the build command, the build should be located in `build/dist` directory and this build is ready for uploading to the server!. To initiate a full build, you simply run the follow task:

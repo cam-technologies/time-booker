@@ -9,19 +9,17 @@
 module('Splash Page', {
   setup: function(){
   Ember.run(this, function () {
-      //
    });
   }
 });
-test('Display welcome message', function() {
+
+test('should show the login page if the user is not logged in', function() {
     expect(1);
     visit('/');
-    andThen(function(){
-        var el = find('h1');
-        equal(el.length, 1, 'H1 tag must be present');
-    });
+    andThen(function() {
+        equal(currentRouteName(), 'login');
+    })
 });
-
 
 test('Should display links for Ember Digest, Articles, Photos and Login', function() {
   expect(3);
@@ -31,7 +29,7 @@ test('Should display links for Ember Digest, Articles, Photos and Login', functi
     equal(el[1].innerText, 'Articles', 'Articles link must be present');
     equal(el[2].innerText, 'Photos', 'Photos link must be present');
     equal(el[3].innerText, 'Login', 'Login link must be present');
-   
+
   });
 });
 
@@ -101,13 +99,46 @@ test('Should check the login form exists', function() {
 test('Should fill in login form with correct credentials and click submit', function() {
   expect(1);
   visit('/login');
-  fillIn('#username', 'ember');
-  fillIn('#password', 'casts');
-  click('#loginSubmit');
+  sucessfulLogin();
   andThen(function() {
     equal(currentRouteName(), 'articles');
   });
 });
+
+test('Display welcome message', function() {
+    expect(1);
+    visit('/');
+    andThen(function() {
+        sucessfulLogin().then(function(){
+            var el = find('h1');
+            equal(el.length, 1, 'H1 tag must be present');
+        });
+    });
+});
+
+test('Should Display index if user is logged in.', function() {
+    expect(2);
+    visit('/');
+    andThen(function() {
+        sucessfulLogin().then(function(){
+            var el = find('h1');
+            equal(el.length, 1, 'H1 tag must be present');
+        }).then(function() {
+            visit('/');
+            andThen(function() {
+                var el = find('h1');
+                equal(el.length, 1, 'H1 tag must be present');
+            });
+        })
+    });
+});
+
+
+function sucessfulLogin() {
+    fillIn('#username', 'ember');
+    fillIn('#password', 'casts');
+    return click('#loginSubmit');
+}
 
    
 
