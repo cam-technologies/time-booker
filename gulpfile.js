@@ -107,7 +107,6 @@ if(!BROWSERS.match(new RegExp(/PhantomJS|Chrome|Firefox|Safari/))) {
 //=============================================
 gutil.log(gutil.colors.blue('********** RUNNING IN ' + ENV + ' ENVIROMENT **********'));
 
-
 //=============================================
 //            DECLARE PATHS
 //=============================================
