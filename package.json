@@ -110,7 +110,8 @@
     "david": "^3.1.0",
     "semver": "^2.3.0",
     "gulp-qunit": "~0.3.3",
-    "gulp-replace": "~0.3.0"
+    "gulp-replace": "~0.3.0",
+    "gulp-shell": "~0.2.7"
   },
   "license": "MIT",
   "engines": {
