@@ -220,7 +220,11 @@ var banner = ['/**',
 //               SUB TASKS
 //=============================================
 
-gulp.task('develop', function () {
+gulp.task('develop', function (cb) {
+    runSequence(['mongo-develop', 'server-develop'], cb);
+});
+
+gulp.task('server-develop', function () {
     var options = {
         script: 'server/src/server.js',
         ext: 'js json',
@@ -555,7 +559,7 @@ gulp.task('default', 'Build env, install bower dependencies and run watch', func
     isWatching = true;
 
     runSequence(['bower-install'],
-        ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'templates', 'mongo-develop', 'watch'],
+        ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'templates', 'watch'],
         cb);
 });
 
