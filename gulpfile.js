@@ -59,6 +59,7 @@ var webdriver_update     = require('gulp-protractor').webdriver_update;
 var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
 var qunit                = require('gulp-qunit');
 var replace              = require('gulp-replace');
+var shell                = require('gulp-shell');
 
 
 //=============================================
@@ -554,7 +555,7 @@ gulp.task('default', 'Build env, install bower dependencies and run watch', func
     isWatching = true;
 
     runSequence(['bower-install'],
-        ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'templates', 'watch'],
+        ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'templates', 'mongo-develop', 'watch'],
         cb);
 });
 
@@ -687,3 +688,12 @@ gulp.task('release', 'Release bumped version number to GitHub repo', ['check'], 
         .pipe(exec('git commit -m "' + commitMsg + '" --no-verify'))
         .pipe(exec('git push origin master'));
 });
+
+/**
+ * Startup mongodb on local host for development.
+ */
+gulp.task('mongo-develop', shell.task([
+    'mongod'
+]));
+
+
