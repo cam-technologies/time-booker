@@ -80,7 +80,6 @@
     "gulp-if": "^1.2.0",
     "gulp-concat": "^2.1.7",
     "gulp-ember-templates": "~0.5.1",
-    "gulp-conventional-changelog": "^0.1.2",
     "gulp-karma": "^0.0.4",
     "gulp-ng-constant": "^0.1.0",
     "gulp-help": "^0.1.0",
@@ -109,7 +108,8 @@
     "david": "^3.1.0",
     "semver": "^2.3.0",
     "gulp-qunit": "~0.3.3",
-    "gulp-replace": "~0.3.0"
+    "gulp-replace": "~0.3.0",
+    "conventional-changelog": "0.0.11"
   },
   "license": "MIT",
   "engines": {

@@ -8,11 +8,13 @@
  * Load required core dependencies. These are installed based on the versions listed
  * in 'package.json' when you do 'npm install' in this directory.
  */
+var fs          = require('fs');
 var argv        = require('minimist')(process.argv.slice(2));
 var gulp        = require('gulp');
 var semver      = require('semver');
 var browser     = require('tiny-lr')();
 var wiredep     = require('wiredep').stream;
+var changelog   = require('conventional-changelog');
 var runSequence = require('run-sequence');
 
 
@@ -48,7 +50,6 @@ var refresh              = require('gulp-livereload');
 var htmlhint             = require("gulp-htmlhint");
 var imagemin             = require('gulp-imagemin');
 var minifyCss            = require('gulp-minify-css');
-var changelog            = require('gulp-conventional-changelog');
 var protractor           = require("gulp-protractor").protractor;
 var ngConstant           = require('gulp-ng-constant');
 var minifyHtml           = require('gulp-minify-html');
@@ -656,14 +657,17 @@ gulp.task('bump', 'Bump version number in package.json & bower.json', ['csslint'
 /**
  * Generate changelog.
  */
-gulp.task('changelog','Generate changelog', function () {
-    return gulp.src(['package.json', 'CHANGELOG.md']) // pass package.json to read data-from
-        .pipe(changelog())
-        .pipe(gulp.dest('.'))
-        .on('error', function (err) {
+gulp.task('changelog', 'Generate changelog', function(callback) {
+    changelog({
+        version: pkg.version
+    }, function(err, log) {
+        if (err) {
             gutil.log(COLORS.red('Error: Failed to generate changelog ' + err));
             return process.exit(1);
-        });
+        }
+        fs.writeFileSync('CHANGELOG.md', log);
+    });
+    callback();
 });
 
 /**
