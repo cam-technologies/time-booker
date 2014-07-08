@@ -51,7 +51,8 @@
     "body-parser": "^1.0.2",
     "method-override": "~2.0.2",
     "errorhandler": "^1.0.0",
-    "nconf": "^0.6.9"
+    "nconf": "^0.6.9",
+    "mongoose": "~3.8.12"
   },
   "devDependencies": {
     "gulp": "^3.6.0",
@@ -109,7 +110,8 @@
     "david": "^3.1.0",
     "semver": "^2.3.0",
     "gulp-qunit": "~0.3.3",
-    "gulp-replace": "~0.3.0"
+    "gulp-replace": "~0.3.0",
+    "gulp-shell": "~0.2.7"
   },
   "license": "MIT",
   "engines": {
