@@ -80,7 +80,8 @@ module('Login Page', {
     textStatus: 'success'
     })
   },
-  teardown: function() {}
+  teardown: function() {
+  }
 });
 
 test('Should check the login form exists', function() {
@@ -137,6 +138,37 @@ test('Should Display index if user is logged in.', function() {
 function sucessfulLogin() {
     fillIn('#username', 'ember');
     fillIn('#password', 'casts');
+    return click('#loginSubmit');
+}
+
+module('Login Page', {
+    setup: function() {
+        ajax.defineFixture('/auth.json', {
+            response: {
+                success: false,
+                message: 'Invalid username/password'
+            },
+            jqXHR: {},
+            textStatus: 'fail'
+        });
+    },
+    teardown: function() {
+    }
+});
+
+test('Should fill in login form with incorrect credentials and click submit', function() {
+    expect(2);
+    visit('/login');
+    unsucessfulLogin();
+    andThen(function() {
+        equal(currentRouteName(), 'login');
+        equal(find('.alert alert-danger') != null, true, 'Alert block must be present');
+    });
+});
+
+function unsucessfulLogin() {
+    fillIn('#username', 'wrong user');
+    fillIn('#password', 'wrong pass');
     return click('#loginSubmit');
 }
 

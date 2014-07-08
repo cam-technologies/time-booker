@@ -60,6 +60,7 @@ var webdriver_update     = require('gulp-protractor').webdriver_update;
 var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
 var qunit                = require('gulp-qunit');
 var replace              = require('gulp-replace');
+var shell                = require('gulp-shell');
 
 
 //=============================================
@@ -220,7 +221,11 @@ var banner = ['/**',
 //               SUB TASKS
 //=============================================
 
-gulp.task('develop', function () {
+gulp.task('develop', function (cb) {
+    runSequence(['mongo-develop', 'server-develop'], cb);
+});
+
+gulp.task('server-develop', function () {
     var options = {
         script: 'server/src/server.js',
         ext: 'js json',
@@ -691,3 +696,12 @@ gulp.task('release', 'Release bumped version number to GitHub repo', ['check'], 
         .pipe(exec('git commit -m "' + commitMsg + '" --no-verify'))
         .pipe(exec('git push origin master'));
 });
+
+/**
+ * Startup mongodb on local host for development.
+ */
+gulp.task('mongo-develop', shell.task([
+    'mongod'
+]));
+
+
