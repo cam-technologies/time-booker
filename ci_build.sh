@@ -116,7 +116,7 @@ function run {
         git push origin $TAG_NAME
 
         # Publish to GitHub gs-pages branch
-        gulp gh-pages
+#        gulp gh-pages
 
         deploy_to_heroku "Deploy release v$TAG_NAME"
 
@@ -150,7 +150,7 @@ function run {
         fi
 
         # Publish to GitHub gs-pages branch
-        gulp gh-pages
+#        gulp gh-pages
 
         deploy_to_heroku "Deploy prerelease v$NEW_VERSION"
 
