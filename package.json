@@ -46,6 +46,7 @@
     "booking"
   ],
   "dependencies": {
+    "pre-commit": "0.0.9",
     "express": "^4.1.0",
     "morgan": "^1.0.0",
     "body-parser": "^1.0.2",
