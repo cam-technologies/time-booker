@@ -195,7 +195,7 @@ Whenever you're working on project, start with:
 ```bash
 $ gulp 
 ```
-This default gulp task will install bower dependencies, build dev enviroment, monitor the source files and run `csslint`, `jshint` and `htmlhint` tasks every time a file changes. The default gulp task also includes [Live Reload](http://livereload.com/), so you no longer have to refresh your page after making changes! The following code must be add to the end of the `body` tag in [index.html](public/index.html):
+This default gulp task will install bower dependencies, build dev enviroment, monitor the source files and run `compass`, `jshint` and `htmlhint` tasks every time a file changes. The default gulp task also includes [Live Reload](http://livereload.com/), so you no longer have to refresh your page after making changes! The following code must be add to the end of the `body` tag in [index.html](public/index.html):
 
 ```html
 <script src="http://localhost:35729/livereload.js?snipver=1"></script>
