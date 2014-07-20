@@ -562,7 +562,7 @@ gulp.task('test:unit', 'Run unit tests', function () {
             browsers: [BROWSERS],
             env: ENV
         }))
-//        .pipe(coverageEnforcer(options))
+        .pipe(coverageEnforcer(options))
         .on('error', function (error) {
             gutil.log(COLORS.red('Error: Unit test failed ' + error));
             return process.exit(1);
