@@ -1,13 +1,11 @@
-<div class="container">
-    <div class="navbar navbar-default">
-        <div class="navbar-inner">
-            <a class="navbar-brand" href="#"><img src="assets/images/cam-logo-text-long.png" alt="cam logo" class="smallimg"/></a>
-            <ul class="nav navbar-nav pull-right">
+<div class="application">
+    <div class="navigation-bar">
+            <a class="brand-image" href="#"><img src="assets/images/cam-logo-text-long.png" alt="cam logo"/></a>
+            <ul>
                 <li>{{#link-to "articles" }}Articles{{/link-to}}</li>
                 <li>{{#link-to "photos" }}Photos{{/link-to}}</li>
                 <li>{{#link-to "login" }}Login{{/link-to}}</li>
             </ul>
-        </div>
     </div>
 
     {{outlet}}

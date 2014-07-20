@@ -44,7 +44,6 @@ var uglify               = require('gulp-uglify');
 var concat               = require('gulp-concat');
 var usemin               = require('gulp-usemin');
 var nodemon              = require('gulp-nodemon');
-var csslint              = require('gulp-csslint');
 var ghPages              = require("gulp-gh-pages");
 var refresh              = require('gulp-livereload');
 var htmlhint             = require("gulp-htmlhint");
@@ -61,6 +60,7 @@ var webdriver_standalone = require('gulp-protractor').webdriver_standalone;
 var qunit                = require('gulp-qunit');
 var replace              = require('gulp-replace');
 var shell                = require('gulp-shell');
+var compass              = require('gulp-compass');
 
 
 //=============================================
@@ -136,6 +136,7 @@ var paths = {
     client: {
         basePath:       'client/src/',
         styles:         'client/src/assets/styles/**/*.css',
+        sass:           'client/src/assets/sass/**/*.scss',
         images:         'client/src/assets/images/**/*.{png,gif,jpg,jpeg}',
         fonts:          'client/src/assets/fonts/**/*',
         scripts:        'client/src/app/**/*.js',
@@ -283,36 +284,6 @@ gulp.task('copy', 'Copy project files that haven\'t been copied by \'compile\' t
         .pipe(gulp.dest(paths.build.dist.basePath));
 });
 
-/**
- * The 'csslint' task defines the rules of our linter as well as which files we
- * should check. This file, all css sources.
- */
-gulp.task('csslint', 'Lint CSS files', function () {
-    var hasCssLintError = false;
-
-    var errorReporter = function() {
-        if(!isWatching && hasCssLintError) {
-//            return process.exit(1);
-        }
-    };
-
-    return gulp.src(paths.client.styles)
-        .pipe(csslint())
-        .pipe(csslint.reporter(function(file) {
-            if(!file.csslint.success) {
-                var errorCount = file.csslint.errorCount;
-                var plural = errorCount === 1 ? '' : 's';
-                gutil.log(COLORS.cyan(errorCount) + ' error' + plural + ' found in ' + COLORS.magenta(file.path));
-                file.csslint.results.forEach(function(result) {
-                    gutil.log(COLORS.red('[csslint L' + result.error.line  + ':C' + result.error.col + '] ' + result.error.message));
-                });
-                hasCssLintError = true;
-            }
-        }))
-        .pipe(refresh(browser))
-        .pipe(size())
-        .on('end', errorReporter);
-});
 
 /**
  * The 'jshint' task defines the rules of our hinter for client as well as which files we
@@ -428,8 +399,8 @@ gulp.task('templates', 'Create template cache js file', function() {
  *    js_libs  - minify, add revision number
  *    html     - minify
  */
-gulp.task('compile', 'Does the same as \'csslint\', \'jshint\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
-    ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'images', 'templates'], function () {
+gulp.task('compile', 'Does the same as \'compass\', \'jshint\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
+    ['compass', 'jshint:client', 'jshint:server', 'htmlhint', 'images', 'templates'], function () {
         var projectHeader = header(banner, { pkg : pkg, date: new Date } );
 
         return gulp.src(paths.client.html)
@@ -489,8 +460,8 @@ gulp.task('watch', 'Watch client files for changes', function () {
                 .pipe(refresh(browser));
         });
 
-        // Watch css files
-        gulp.watch(paths.client.styles, ['csslint']);
+        //watch the sass files
+        gulp.watch(paths.client.sass, ['compass']);
 
         // Watch js files
         gulp.watch(paths.client.scripts, ['jshint:client']);
@@ -556,11 +527,11 @@ gulp.task('install', 'Install and inject bower into index.html and compile hbs e
  * The 'default' task is to build env, install bower dependencies and run watch.
  */
 gulp.task('default', 'Build env, install bower dependencies and run watch', function (cb) {
-    // set to 'true' to avoid process exit on error for csslint, jshint and htmlhint
+    // set to 'true' to avoid process exit on error for compass, jshint and htmlhint
     isWatching = true;
 
     runSequence(['bower-install'],
-        ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'templates', 'watch'],
+        ['compass', 'jshint:client', 'jshint:server', 'htmlhint', 'templates', 'watch'],
         cb);
 });
 
@@ -591,7 +562,7 @@ gulp.task('test:unit', 'Run unit tests', function () {
             browsers: [BROWSERS],
             env: ENV
         }))
-//        .pipe(coverageEnforcer(options))
+        .pipe(coverageEnforcer(options))
         .on('error', function (error) {
             gutil.log(COLORS.red('Error: Unit test failed ' + error));
             return process.exit(1);
@@ -635,7 +606,7 @@ gulp.task('build', 'Build application for deployment', function (cb) {
 /**
  * Bump version number in package.json & bower.json.
  */
-gulp.task('bump', 'Bump version number in package.json & bower.json', ['csslint', 'jshint:client', 'jshint:server', 'htmlhint', 'test:unit'], function () {
+gulp.task('bump', 'Bump version number in package.json & bower.json', ['compass', 'jshint:client', 'jshint:server', 'htmlhint', 'test:unit'], function () {
     var HAS_REQUIRED_ATTRIBUTE = !!argv.type ? !!argv.type.match(new RegExp(/major|minor|patch/)) : false;
 
     if (!HAS_REQUIRED_ATTRIBUTE) {
@@ -705,3 +676,15 @@ gulp.task('mongo-develop', shell.task([
 ]));
 
 
+/**
+ * Compile Compass SASS to CSS
+ */
+gulp.task('compass', function() {
+    gulp.src(paths.client.sass)
+        .pipe(compass({
+            config_file: 'client/src/assets/config.rb',
+            css: 'client/src/assets/styles',
+            sass: 'client/src/assets/sass'
+        }))
+        .pipe(gulp.dest('client/src/assets/styles/'));
+});

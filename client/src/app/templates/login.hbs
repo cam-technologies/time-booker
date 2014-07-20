@@ -1,8 +1,8 @@
 {{#if loggedIn}}
     <p>You are already logged in!</p>
 {{else}}
-<div class="container ">
-  <div class="login-container animated">
+<div class="login-form">
+  <div class="login-container">
     <div id="output"></div>
     <div class="avatar"></div>
     <div class="form-box">
@@ -13,7 +13,6 @@
       </form>
     </div>
   </div>
-  
 </div>
     {{#if errorMessage}}
         <div class="alert alert-danger">{{errorMessage}}</div>

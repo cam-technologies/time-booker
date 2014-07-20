@@ -24,3 +24,11 @@ client/src/vendor/
 # build folder for production
 build/
 client/src/tmp
+
+# SASS cache files
+client/src/assets/.sass-cache
+.sass-cache/
+
+# generated CSS
+client/src/assets/styles
+*.css
