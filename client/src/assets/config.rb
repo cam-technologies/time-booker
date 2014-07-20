@@ -1,5 +1,5 @@
 # Require any additional compass plugins here.
-require 'bootstrap-sass'
+# require 'bootstrap-sass'
 #Folder settings
 relative_assets = true      #because we're not working from the root
 css_dir = "styles"          #where the CSS will saved
