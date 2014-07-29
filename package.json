@@ -53,7 +53,9 @@
     "method-override": "~2.0.2",
     "errorhandler": "^1.0.0",
     "nconf": "^0.6.9",
-    "mongoose": "~3.8.12"
+    "mongoose": "~3.8.12",
+    "mongo-migrate": "~0.1.0",
+    "migrate": "~0.1.4"
   },
   "devDependencies": {
     "gulp": "^3.6.0",

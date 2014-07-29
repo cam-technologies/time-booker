@@ -104,6 +104,10 @@ Note you should run these commands as admin.
     ```bash
     $ npm install -g bower
     ```
+* [Install Migrate](https://github.com/visionmedia/node-migrate) as global module. 
+    ```bash
+    $ npm install -g migrate
+    ```
 
 ### App
 Run the following commands to download Time-Booker app:
@@ -129,6 +133,13 @@ Run the following commands to download Time-Booker app:
     ```
     
 > **Note:** Verify that all 3rd party dependencies from [package.json](package.json) and [bower.json](bower.json) are installed on your local machine. If you have followed the instructions and there have been no errors when executing the above commands, the dependencies should be installed.
+
+* Apply al database migrations 
+
+    ```bash
+    $ migrate
+    ```
+    
 
 ## Running App
 
@@ -273,6 +284,15 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 For more information on SemVer, please visit <http://semver.org/>.
+
+## Database Migrations 
+    * Create new migration 
+    ```bash 
+    $ migrate create <migration name>
+    ```
+
+For more information please visit <https://github.com/visionmedia/node-migrate>
+
 
 Development Principles
 ----------------------
