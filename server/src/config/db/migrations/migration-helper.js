@@ -1,3 +1,4 @@
+'use strict';
 // Imports
 var config  = require('../../config');
 var mongoose = require('mongoose');
@@ -20,7 +21,7 @@ exports.addNewUser = function(name, email, password, next) {
 
     user.save(function (err) {
         if (!err) {
-            console.info("User created: " + user);
+            console.info('User created: ' + user);
         } else {
             console.error(err);
         }

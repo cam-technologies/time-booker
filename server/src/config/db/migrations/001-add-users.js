@@ -1,3 +1,5 @@
+'use strict';
+
 var migrationHelper = require('./migration-helper');
 
 exports.up = function (next) {
