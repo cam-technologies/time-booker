@@ -106,7 +106,7 @@ Note you should run these commands as admin.
     ```
 * [Install Migrate](https://github.com/visionmedia/node-migrate) as global module. 
     ```bash
-    $ npm install -g migrate
+    $ gulp migrate
     ```
 
 ### App
@@ -199,6 +199,7 @@ The main gulp tasks are descriptive more in `development`, `test`, `build` and `
 | `gulp bump` | will increment version number in [`package.json`](package.json) and [`bower.json`](bower.json)|
 | `gulp changelog` | will generate changelog in [`CHANGELOG.md`](CHANGELOG.md) |
 | `gulp release` | will release and push [`package.json`](package.json) and [`CHANGELOG.md`](CHANGELOG.md) to GitHub repo |
+| `gulp migrate` | will run the data base migrations |
 
 ## Development
 Whenever you're working on project, start with:

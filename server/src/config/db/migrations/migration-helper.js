@@ -1,7 +1,7 @@
 // Imports
-var config  = require('../server/src/config/config');
+var config  = require('../../config');
 var mongoose = require('mongoose');
-var User = require('../server/src/models/user');
+var User = require('../../../models/user');
 
 //Processing
 mongoose.connect(config.get('database'));
@@ -30,8 +30,11 @@ exports.addNewUser = function(name, email, password, next) {
     }
 };
 
-exports.removeUser = function(email) {
+exports.removeUser = function(email, next) {
     User.findOne({email:email}, function(err, doc) {
         doc.remove();
+        if (next){
+            next();
+        }
     });
 };
