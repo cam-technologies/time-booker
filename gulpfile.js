@@ -688,3 +688,10 @@ gulp.task('compass', function() {
         }))
         .pipe(gulp.dest('client/src/assets/styles/'));
 });
+
+/**
+ * Run data base migrations.
+ */
+gulp.task('migrate', shell.task([
+    'migrate --chdir server/src/config/db/'
+]));
