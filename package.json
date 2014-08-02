@@ -113,7 +113,8 @@
     "gulp-replace": "~0.3.0",
     "conventional-changelog": "0.0.11",
     "gulp-shell": "~0.2.7",
-    "gulp-compass": "~1.1.9"
+    "gulp-compass": "~1.1.9",
+    "mm-mongoose-connection": "0.0.*"
   },
   "license": "MIT",
   "engines": {

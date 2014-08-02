@@ -3,5 +3,8 @@
         "port": 3000
     },
     "publicPath": "/../../../client/src/",
-    "database": "mongodb://localhost/time-booker"
+    "mongodb": {
+        "dbURI": "mongodb://127.0.0.1:27017/time-booker",
+        "dbOptions": {"user": "", "pass": ""}
+    }
 }
