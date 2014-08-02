@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var User = require('../../../models/user');
 
 //Processing
-mongoose.connect(config.get('database'));
+mongoose.connect(config.get('mongodb:dbURI'));
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
