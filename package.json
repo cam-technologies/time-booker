@@ -12,7 +12,7 @@
     },
     {
       "name": "Christopher Laughlin",
-      "mail": "bluntm@gmail.com",
+      "mail": "contact@christopherlaughlin.co.uk",
       "url": "http://www.christopherlaughlin.co.uk/"
     },
     {
@@ -25,7 +25,7 @@
   "scripts": {
     "jshint": "gulp jshint",
     "htmlhint": "gulp htmlhint",
-    "test": "gulp test:unit",
+    "test": "gulp test",
     "dep-check": "david"
   },
   "pre-commit": [
