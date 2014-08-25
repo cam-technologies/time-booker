@@ -61,6 +61,7 @@ var qunit                = require('gulp-qunit');
 var replace              = require('gulp-replace');
 var shell                = require('gulp-shell');
 var compass              = require('gulp-compass');
+var mocha                = require('gulp-mocha');
 
 
 //=============================================
@@ -94,12 +95,12 @@ var isWatching      = false;
 //=============================================
 
 if(!ENV.match(new RegExp(/production|development/))) {
-    gutil.log(COLORS.red('Error: The argument \'env\' has incorrect value \'' + ENV +'\'! Usage: gulp test:unit --env=(development|production)'));
+    gutil.log(COLORS.red('Error: The argument \'env\' has incorrect value \'' + ENV +'\'! Usage: gulp test:client-unit --env=(development|production)'));
     return process.exit(1);
 }
 
 if(!BROWSERS.match(new RegExp(/PhantomJS|Chrome|Firefox|Safari/))) {
-    gutil.log(COLORS.red('Error: The argument \'browsers\' has incorrect value \'' + BROWSERS +'\'! Usage: gulp test:unit --env=(PhantomJS|Chrome|Firefox|Safari)'));
+    gutil.log(COLORS.red('Error: The argument \'browsers\' has incorrect value \'' + BROWSERS +'\'! Usage: gulp test:client-unit --env=(PhantomJS|Chrome|Firefox|Safari)'));
     return process.exit(1);
 }
 
@@ -141,13 +142,19 @@ var paths = {
         fonts:          'client/src/assets/fonts/**/*',
         scripts:        'client/src/app/**/*.js',
         html:           'client/src/*.html',
-        templates:      'client/src/app/**/*.{hbs,hjs,handlebars}',
-        test: {
+        templates:      'client/src/app/**/*.{hbs,hjs,handlebars}'
+    },
+    server:             'server/src/**/*',
+    test: {
+        client: {
             unit:       'client/test/unit/**/*_test.js',
+            e2e:        'client/test/e2e/**/*_e2e.js'
+        },
+        server: {
+            unit:       'server/test/unit/**/*-spec.js',
             e2e:        'client/test/e2e/**/*_e2e.js'
         }
     },
-    server:             'server/src/**/*',
     /**
      * The 'vendor' folder is where our bower dependencies are hold.
      */
@@ -187,7 +194,7 @@ var paths = {
                 coverage: 'build/test-reports/client/coverage/'
             },
             server: {
-                coverage: ''
+                coverage: 'build/test-reports/server/coverage'
             }
         },
         docs:           'build/docs/'
@@ -536,10 +543,10 @@ gulp.task('default', 'Build env, install bower dependencies and run watch', func
 });
 
 /**
- * Run unit tests.
+ * Run client unit tests.
  */
 // TODO (martin): there is an issue in 'gulp-karma' when this plugin doesn't pull file list from karma.conf.js https://github.com/lazd/gulp-karma/issues/9 and './idontexist' it's just workaround for now
-gulp.task('test:unit', 'Run unit tests', function () {
+gulp.task('test:client-unit', 'Run client unit tests', function () {
     var options = {
         thresholds : {
             statements : 95,
@@ -570,6 +577,14 @@ gulp.task('test:unit', 'Run unit tests', function () {
 });
 
 /**
+ * Run server unit tests.
+ */
+gulp.task('test:server-unit', 'Run server unit tests', function () {
+    return gulp.src(paths.test.server.unit, {read: false})
+        .pipe(mocha({reporter: 'nyan'}));
+});
+
+/**
  * Run e2e tests.
  */
 
@@ -579,7 +594,7 @@ gulp.task('test:e2e', 'Run Client E2E Tests', function() {
 });
 
 gulp.task('test', 'Run both unit and E2E tests', function() {
-    runSequence(['test:unit','test:e2e']);
+    runSequence(['test:client-unit','test:e2e', 'test:server-unit']);
 });
 /**
  * The 'compile' task gets app ready for deployment by concatenating,
@@ -596,8 +611,9 @@ gulp.task('build', 'Build application for deployment', function (cb) {
         gutil.log(COLORS.blue('********** BUILDING RELEASE VERSION **********'));
         // this task should run when user has decide to manually upload files to production server as this task run all unit and e2e test
         runSequence(['clean', 'bower-install'],
-            ['test:unit'],
+            ['test:client-unit'],
             ['test:e2e'],
+            ['test:server-unit'],
             ['compile', 'copy'],
             cb);
     }
@@ -606,7 +622,8 @@ gulp.task('build', 'Build application for deployment', function (cb) {
 /**
  * Bump version number in package.json & bower.json.
  */
-gulp.task('bump', 'Bump version number in package.json & bower.json', ['compass', 'jshint:client', 'jshint:server', 'htmlhint', 'test:unit'], function () {
+gulp.task('bump', 'Bump version number in package.json & bower.json', ['compass', 'jshint:client', 'jshint:server', 'htmlhint',
+    'test:client-unit', 'test:server-unit'], function () {
     var HAS_REQUIRED_ATTRIBUTE = !!argv.type ? !!argv.type.match(new RegExp(/major|minor|patch/)) : false;
 
     if (!HAS_REQUIRED_ATTRIBUTE) {
