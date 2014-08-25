@@ -3,6 +3,7 @@
 var config  = require('../../config');
 var mongoose = require('mongoose');
 var User = require('../../../models/user');
+var passwordHash = require('password-hash');
 
 //Processing
 mongoose.connect(config.get('mongodb:dbURI'));
@@ -39,3 +40,6 @@ exports.removeUser = function(email, next) {
         }
     });
 };
+
+exports.passwordHash = passwordHash;
+exports.users = User;
