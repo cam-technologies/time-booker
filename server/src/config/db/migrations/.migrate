@@ -1,1 +1,1 @@
-{"migrations":[{"title":"migrations/001-add-users.js"}],"path":"migrations/.migrate","pos":1,"_events":{}}
+{"migrations":[{"title":"migrations/001-add-users.js"},{"title":"migrations/002-hash-password.js"}],"path":"migrations/.migrate","pos":2,"_events":{}}

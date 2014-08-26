@@ -88,7 +88,7 @@ function run {
     gulp build --notest
 
     echo "-- Running unit & e2e tests "
-    gulp test:unit --browsers=Firefox --env=production
+    gulp test --browsers=Firefox --env=production
     # gulp test:e2e --browsers=Firefox
 
     if [[ "$PULL_REQUEST" != "false" ]]; then
